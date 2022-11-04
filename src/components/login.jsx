@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Typography from '@mui/material/Typography';
 import { post } from "../utils/requests";
 import { useDispatch } from "react-redux";
-import { setUserData } from "../redux/actions/updateCurrentUser";
+import { setUserData } from "../redux/user/userSlice";
 import { get } from "../utils/requests";
 
 export default function Login() {
@@ -11,6 +11,16 @@ export default function Login() {
   const [password, setPassword] = useState('1234')
   const dispatch = useDispatch();
 
+  const saveUserData = (res) => {
+    dispatch(
+      setUserData({
+        name: res.data.name,
+        lastname: res.data.lastname,
+        phoneNumber: Number(res.data.phoneNumber),
+        email: res.data.email,
+        isDriver: res.data.isDriver
+      }))
+  }
 
   const onSignIn = () => {
     return post(`https://altego-fiuber-apigateway.herokuapp.com/login`, {
@@ -22,14 +32,7 @@ export default function Login() {
         sessionStorage.setItem("token", token);
         sessionStorage.setItem("id", id.toString());
         get(`https://altego-fiuber-apigateway.herokuapp.com/users/${id}`, token).then((res) => {
-          console.log(res.data.name)
-          dispatch(
-            setUserData({
-              name: res.data.name,
-              lastname: res.data.lastname,
-              phoneNumber: Number(res.data.phoneNumber),
-              email: res.data.email,
-            }))
+            saveUserData(res);
             window.location.href = "/";
       })
     })

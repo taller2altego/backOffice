@@ -3,10 +3,13 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
 import { get } from "../utils/requests";
 import NavBar from './NavBar';
+import {useSelector} from "react-redux";
 
 
 export default function DataTable() {
   const [users, setUsers] = useState([])
+  const currentUserData = useSelector(store => store.userData);
+  console.log(currentUserData);
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 100 },
@@ -54,13 +57,9 @@ export default function DataTable() {
 
   },[])
 
-  useEffect(() => {
-    console.log(users)
-  }, [users])
-
   return (
     <div style={{ height: '100vh', width: '100%' }}>
-      <NavBar/>
+      <NavBar name={currentUserData.name}/>
         <DataGrid
           style={ { top: "9%" } }
           rows={users}

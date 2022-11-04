@@ -17,26 +17,20 @@ import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Divider from '@mui/material/Divider';
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 
-const NavBar = ({ buttonDarkMode }) => {
+const NavBar = ({ buttonDarkMode, name }) => {
 
-  const [state, setState] = useState({left: false,});
-  const currentUserData = useSelector((store) => store.userData);
-  const [user, setUSer] = useState(currentUserData);
+  const [statee, setState] = useState({left: false,});
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
     
-    setState({ ...state, [anchor]: open });
+    setState({ ...statee, [anchor]: open });
   };
-
-  React.useEffect(() => {
-    console.log(currentUserData)
-  },[user])
 
   return (
     <>
@@ -68,7 +62,7 @@ const NavBar = ({ buttonDarkMode }) => {
           </Box>
           <Drawer
             anchor={'left'}
-            open={state['left']}
+            open={statee['left']}
             onClose={toggleDrawer('left', false)}
           >
             <Box
@@ -114,7 +108,7 @@ const NavBar = ({ buttonDarkMode }) => {
                 <List alignItems="flex-start">
                   <ListItem alignItem ='flex-end' >
                     <ListItemIcon  fontSize="large" ><AccountCircleIcon/></ListItemIcon>
-                    <ListItemText primary={ user.name } />
+                    <ListItemText primary={ name } />
                   </ListItem>
                 </List>
                 
