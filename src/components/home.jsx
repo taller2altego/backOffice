@@ -2,6 +2,7 @@ import React , { useEffect, useState }from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
 import { get } from "../utils/requests";
+import NavBar from './NavBar';
 
 
 export default function DataTable() {
@@ -20,20 +21,20 @@ export default function DataTable() {
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation(); // don't select this row after clicking
-  
+
           const api = params.api;
           const thisRow= {};
-  
+
           api
             .getAllColumns()
             .filter((c) => c.field !== "__check__" && !!c)
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
-  
+
           return prompt(JSON.stringify(thisRow, null, 4));
         };
-  
+
         return <Button onClick={onClick}>Edit</Button>;
       }
   },
@@ -42,7 +43,7 @@ export default function DataTable() {
   useEffect (() => {
     const fetchAll = async (token) => {
       const result = await get(`https://altego-fiuber-apigateway.herokuapp.com/users`,token)
-      setUsers(result.data.data) 
+      setUsers(result.data.data)
     }
     if (sessionStorage.getItem('token')){
       const token = sessionStorage.getItem('token')
@@ -59,12 +60,14 @@ export default function DataTable() {
 
   return (
     <div style={{ height: '100vh', width: '100%' }}>
-      <DataGrid
-        rows={users}
-        columns={columns}
-        pageSize={15}
-        rowsPerPageOptions={[5]}
-      /> 
+      <NavBar/>
+        <DataGrid
+          style={ { top: "9%" } }
+          rows={users}
+          columns={columns}
+          pageSize={15}
+          rowsPerPageOptions={[5]}
+        />
     </div>
   );
 }

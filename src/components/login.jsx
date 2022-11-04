@@ -2,11 +2,16 @@ import { Input, Button, Grid} from "@mui/material";
 import React, { useState } from "react";
 import Typography from '@mui/material/Typography';
 import { post } from "../utils/requests";
-
+import { useDispatch } from "react-redux";
+import { setUserData } from "../redux/actions/updateCurrentUser";
+import { get } from "../utils/requests";
 
 export default function Login() {
   const [email, setEmail] = useState('n@s.com')
   const [password, setPassword] = useState('1234')
+  const dispatch = useDispatch();
+
+
   const onSignIn = () => {
     return post(`https://altego-fiuber-apigateway.herokuapp.com/login`, {
       email: email,
@@ -16,10 +21,19 @@ export default function Login() {
         const { data: { id, token } } = info;
         sessionStorage.setItem("token", token);
         sessionStorage.setItem("id", id.toString());
-        window.location.href = "/"
+        get(`https://altego-fiuber-apigateway.herokuapp.com/users/${id}`, token).then((res) => {
+          console.log(res.data.name)
+          dispatch(
+            setUserData({
+              name: res.data.name,
+              lastname: res.data.lastname,
+              phoneNumber: Number(res.data.phoneNumber),
+              email: res.data.email,
+            }))
+            window.location.href = "/";
       })
-  };
-  
+    })
+  }
   
 
 
