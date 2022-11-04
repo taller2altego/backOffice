@@ -14,8 +14,8 @@ export default function Login() {
     })
       .then(async (info) => {
         const { data: { id, token } } = info;
-        localStorage.setItem("token", token);
-        localStorage.setItem("id", id.toString());
+        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("id", id.toString());
         window.location.href = "/"
       })
   };
