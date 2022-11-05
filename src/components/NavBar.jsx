@@ -51,7 +51,7 @@ const NavBar = ({ buttonDarkMode, username }) => {
                   <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                  PSA
+                  Fiuber
                 </Typography>
                 <>{buttonDarkMode}</>
               </Toolbar>
@@ -81,7 +81,7 @@ const NavBar = ({ buttonDarkMode, username }) => {
                       </ListItemIcon>
                       <ListItemText
                         sx={{ my: 0 }}
-                        primary="PSA"
+                        primary="Fiuber BackOffice"
                         primaryTypographyProps={{
                           fontSize: 20,
                           fontWeight: "medium",
@@ -93,26 +93,26 @@ const NavBar = ({ buttonDarkMode, username }) => {
                   <Divider />
                   <ListItem
                     button
-                    key={"proyectos"}
+                    key={"usuarios"}
                     component="a"
-                    href="/proyectos-list"
+                    href="/"
                     sx={{ mt: 8 }}
                   >
                     <ListItemIcon>
                       <ListIcon />
                     </ListItemIcon>
-                    <ListItemText primary={"Proyectos"} />
+                    <ListItemText primary={"Usuarios"} />
                   </ListItem>
                   <ListItem
                     button
-                    key={"soporte"}
+                    key={"cotizacion"}
                     component="a"
-                    href="/soporte"
+                    href="/cotizacion"
                   >
                     <ListItemIcon>
                       <BuildIcon />
                     </ListItemIcon>
-                    <ListItemText primary={"Soporte"} />
+                    <ListItemText primary={"Cotizacion"} />
                   </ListItem>
                 </List>
               </Box>

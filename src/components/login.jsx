@@ -25,6 +25,8 @@ export default function Login() {
         `https://altego-fiuber-apigateway.herokuapp.com/users/${id}`,
         token
       ).then((res) => {
+        console.log("res = ") 
+        console.log(res.data)
         dispatch(
           setUserData({
             name: res.data.name,

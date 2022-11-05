@@ -37,7 +37,7 @@ export default function DataTable() {
           return prompt(JSON.stringify(thisRow, null, 4));
         };
 
-        return <Button onClick={onClick}>Edit</Button>;
+        return <Button onClick={onClick}>Detalle</Button>;
       },
     },
   ];
