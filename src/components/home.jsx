@@ -4,11 +4,12 @@ import { Button } from "@mui/material";
 import { get } from "../utils/requests";
 import NavBar from "./NavBar";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function DataTable() {
   const [users, setUsers] = useState([]);
   const currentUserData = useSelector((store) => store.user);
-  console.log(currentUserData);
+  const navigate = useNavigate();
 
   const columns = [
     { field: "id", headerName: "ID", width: 100 },
@@ -54,7 +55,7 @@ export default function DataTable() {
       const token = sessionStorage.getItem("token");
       fetchAll(token);
     } else {
-      window.location.href = "/login";
+      navigate("/login");
     }
   }, []);
 

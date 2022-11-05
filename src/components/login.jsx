@@ -5,10 +5,12 @@ import { post } from "../utils/requests";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../redux/slices/userSlice";
 import { get } from "../utils/requests";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("n@s.com");
   const [password, setPassword] = useState("1234");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const onSignIn = () => {
@@ -34,7 +36,7 @@ export default function Login() {
             isDriver: res.data.isDriver,
           })
         );
-        window.location.href = "/";
+        navigate("/");
       });
     });
   };
