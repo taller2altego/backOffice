@@ -3,13 +3,16 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import { get } from "../utils/requests";
 import NavBar from "./NavBar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setState } from "../utils/setState";
+import { config } from "../Constants";
 
 export default function DataTable() {
   const [users, setUsers] = useState([]);
   const currentUserData = useSelector((store) => store.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const columns = [
     { field: "id", headerName: "ID", width: 100 },
@@ -46,29 +49,30 @@ export default function DataTable() {
   useEffect(() => {
     const fetchAll = async (token) => {
       const result = await get(
-        `https://altego-fiuber-apigateway.herokuapp.com/users`,
+        `${config.API_URL}/users`,
         token
       );
       setUsers(result.data.data);
     };
     if (sessionStorage.getItem("token")) {
       const token = sessionStorage.getItem("token");
+      setState(navigate, dispatch);
       fetchAll(token);
-    } else {
-      navigate("/login");
+    }else{
+      setState(navigate, dispatch);
     }
   }, []);
 
   return (
     <div style={{ height: "100vh", width: "100%" }}>
-      <NavBar username={currentUserData.name} />
+      token ? (<NavBar username={currentUserData.name} />
       <DataGrid
-        style={{ top: "9%" }}
+        style={{ top: "5%" }}
         rows={users}
         columns={columns}
         pageSize={15}
         rowsPerPageOptions={[5]}
-      />
+      />) : ({() => navigate('/login')})
     </div>
   );
 }

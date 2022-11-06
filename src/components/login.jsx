@@ -1,20 +1,26 @@
 import { Input, Button, Grid } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import { post } from "../utils/requests";
 import { useDispatch } from "react-redux";
-import { setUserData } from "../redux/slices/userSlice";
-import { get } from "../utils/requests";
 import { useNavigate } from "react-router-dom";
+import { setState } from "../utils/setState";
+import { config } from "../Constants";
 
 export default function Login() {
   const [email, setEmail] = useState("n@s.com");
   const [password, setPassword] = useState("1234");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (sessionStorage.getItem("token")){
+      navigate("/")
+    }
+  }, []);
 
   const onSignIn = () => {
-    return post(`https://altego-fiuber-apigateway.herokuapp.com/login`, {
+    return post(`${config.API_URL}/login`, {
       email: email,
       password: password,
     }).then(async (info) => {
@@ -23,25 +29,10 @@ export default function Login() {
       } = info;
       sessionStorage.setItem("token", token);
       sessionStorage.setItem("id", id.toString());
-      get(
-        `https://altego-fiuber-apigateway.herokuapp.com/users/${id}`,
-        token
-      ).then((res) => {
-        console.log("res = ") 
-        console.log(res.data)
-        dispatch(
-          setUserData({
-            name: res.data.name,
-            lastname: res.data.lastname,
-            phoneNumber: Number(res.data.phoneNumber),
-            email: res.data.email,
-            isDriver: res.data.isDriver,
-          })
-        );
-        navigate("/");
+      setState(navigate, dispatch)
+      navigate("/")
       });
-    });
-  };
+    }
 
   return (
     <div

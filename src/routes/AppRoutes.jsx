@@ -17,7 +17,7 @@ const AppRoutes = () => {
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/login" element={<LoginPage />} />
-            <Route exact path="/Cotizacion" element={<Cotizacion />} />
+            <Route exact path="/cotizacion" element={<Cotizacion />} />
           </Routes>
         </Suspense>
       </Router>

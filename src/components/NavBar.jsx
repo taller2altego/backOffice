@@ -17,10 +17,11 @@ import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Divider from "@mui/material/Divider";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = ({ buttonDarkMode, username }) => {
   const [statee, setState] = useState({ left: false });
+  const navigate = useNavigate();
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -32,6 +33,11 @@ const NavBar = ({ buttonDarkMode, username }) => {
 
     setState({ ...statee, [anchor]: open });
   };
+
+  const Logout = () => {
+    sessionStorage.clear()
+    navigate("/login")
+  }
 
   return (
     <>
@@ -95,7 +101,7 @@ const NavBar = ({ buttonDarkMode, username }) => {
                     button
                     key={"usuarios"}
                     component="a"
-                    href="/"
+                    onClick={() => navigate("/")}
                     sx={{ mt: 8 }}
                   >
                     <ListItemIcon>
@@ -107,7 +113,7 @@ const NavBar = ({ buttonDarkMode, username }) => {
                     button
                     key={"cotizacion"}
                     component="a"
-                    href="/cotizacion"
+                    onClick={() => navigate("/cotizacion")}
                   >
                     <ListItemIcon>
                       <BuildIcon />
@@ -123,8 +129,13 @@ const NavBar = ({ buttonDarkMode, username }) => {
                 color="primary"
                 sx={{ top: "auto", bottom: 0, left: 0, width: 250 }}
               >
-                <List alignItems="flex-start">
-                  <ListItem alignItem="flex-end">
+                <List 
+                  alignItems="flex-start" 
+                  button
+                  key={"cotizacion"}
+                  component="a"
+                  onClick={() => Logout()}>
+                  <ListItem alignItem="flex-end" >
                     <ListItemIcon fontSize="large">
                       <AccountCircleIcon />
                     </ListItemIcon>

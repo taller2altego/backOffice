@@ -3,7 +3,7 @@
 const VariablesCot = () => {
     return(
         <>
-            Hola
+        Hola
         </>
     )
 }
