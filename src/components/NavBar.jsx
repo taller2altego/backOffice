@@ -113,7 +113,7 @@ const NavBar = ({ buttonDarkMode, username }) => {
                     button
                     key={"cotizacion"}
                     component="a"
-                    onClick={() => navigate("/cotizacion")}
+                    onClick={() => navigate("/quotes")}
                   >
                     <ListItemIcon>
                       <BuildIcon />
