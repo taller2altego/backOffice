@@ -9,31 +9,17 @@ import { setState } from "../utils/setState";
 
 const Cotizacion = () => {
     const currentUserData = useSelector((store) => store.user);
-    const [cotizaciones, setCotizaciones] = useState    ("")
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const fetchAll = async (token) => {
-          const result = await get(
-            `${config.API_URL}/fees`,
-            token
-          );
-        console.log(result)
-        };
-        if (sessionStorage.getItem("token")) {
-          const token = sessionStorage.getItem("token");
-          setState(navigate, dispatch);
-          fetchAll(token);
-        }else{
-          setState(navigate, dispatch);
-        }
+      setState(navigate, dispatch)
       }, []);
 
     return(
         <>
             <NavBar username={currentUserData.name}/>
-            <VariablesCot style={{ top: "9%" }} />
+            <VariablesCot />
         </>
     )
 }

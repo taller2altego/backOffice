@@ -139,7 +139,7 @@ const NavBar = ({ buttonDarkMode, username }) => {
                     <ListItemIcon fontSize="large">
                       <AccountCircleIcon />
                     </ListItemIcon>
-                    <ListItemText primary={username} />
+                    <ListItemText primary={`${username} | SALIR`} />
                   </ListItem>
                 </List>
               </AppBar>

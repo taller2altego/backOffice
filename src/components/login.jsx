@@ -8,7 +8,7 @@ import { setState } from "../utils/setState";
 import { config } from "../Constants";
 
 export default function Login() {
-  const [email, setEmail] = useState("n@s.com");
+  const [email, setEmail] = useState("admin@fiuber.com");
   const [password, setPassword] = useState("1234");
   const navigate = useNavigate();
   const dispatch = useDispatch()
