@@ -5,8 +5,7 @@ import Grid from '@mui/material/Grid';
 
 const HomePage = lazy(() => import("../pages/Home.jsx"));
 const LoginPage = lazy(() => import("../pages/Login.jsx"));
-
-// const NotFound = lazy(() => import("../pages/NotFound")); AÑADIR DESPUÉS. NO BORRAR
+const Cotizacion = lazy(() => import("../pages/Cotizacion.jsx"));
 
 const AppRoutes = () => {
   return (
@@ -18,6 +17,7 @@ const AppRoutes = () => {
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/login" element={<LoginPage />} />
+            <Route exact path="/cotizacion" element={<Cotizacion />} />
           </Routes>
         </Suspense>
       </Router>
