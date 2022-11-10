@@ -120,6 +120,18 @@ const NavBar = ({ buttonDarkMode, username }) => {
                     </ListItemIcon>
                     <ListItemText primary={"Cotizacion"} />
                   </ListItem>
+
+                  <ListItem
+                    button
+                    key={"Metricas"}
+                    component="a"
+                    onClick={() => navigate("/metrics")}
+                  >
+                    <ListItemIcon>
+                      <BuildIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={"Metricas"} />
+                  </ListItem>
                 </List>
               </Box>
 
@@ -129,8 +141,8 @@ const NavBar = ({ buttonDarkMode, username }) => {
                 color="primary"
                 sx={{ top: "auto", bottom: 0, left: 0, width: 250 }}
               >
-                <List 
-                  alignItems="flex-start" 
+                <List
+                  alignItems="flex-start"
                   button
                   key={"cotizacion"}
                   component="a"
