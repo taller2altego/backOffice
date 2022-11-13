@@ -124,118 +124,120 @@ export default function DetailQuote({ id, navigate, ...props }) {
 	}
 
 	return (
-		<Grid container >
-			{error ? <InstantMessage message="Debe cambiar el estado de por lo menos un campo" setState={setError} /> : ``}
-			<Grid item xs={6}>
-			<Typography variant="h3" component="div">
-				Cotizacion
-			</Typography>
-			</Grid>
-			<Grid item xs={6}>
-				<Box
-					display="flex"
-					justifyContent="center"
-					height={70}
-					style={{ top: "50%	" }}
-				>
-					<Button
-						variant="contained"
-						color="success"
-						size="large"
-						onClick={setActualQuote}
+		<div style={{ height: "2vh", width: "100%" }}>
+			<Grid container >
+				{error ? <InstantMessage message="Debe cambiar el estado de por lo menos un campo" setState={setError} /> : ``}
+				<Grid item xs={6}>
+					<Typography variant="h3" component="div">
+						Cotizacion
+					</Typography>
+				</Grid>
+				<Grid item xs={6}>
+					<Box
+						display="flex"
+						justifyContent="center"
+						height={70}
+						style={{ top: "50%	" }}
 					>
-						Añadir nueva cotizacion
-					</Button>
-				</Box>
-			</Grid>
-			<Grid item xs={6}>
-				<Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div">
-					Travel Distance
-				</Typography>
+						<Button
+							variant="contained"
+							color="success"
+							size="large"
+							onClick={setActualQuote}
+						>
+							Añadir nueva cotizacion
+						</Button>
+					</Box>
+				</Grid>
+				<Grid item xs={6}>
+					<Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div">
+						Travel Distance
+					</Typography>
 
-				<TextField
-					id="outlined-name"
-					value={travelDistance}
-					onChange={handleTravelDistanceChange}
-				/>
-			</Grid>
-			<Grid item xs={6}>
-				<Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div">
-					Price
-				</Typography>
+					<TextField
+						id="outlined-name"
+						value={travelDistance}
+						onChange={handleTravelDistanceChange}
+					/>
+				</Grid>
+				<Grid item xs={6}>
+					<Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div">
+						Price
+					</Typography>
 
-				<TextField
-					id="outlined-name"
-					value={price}
-					onChange={handlePriceChange}
-				/>
-			</Grid>
+					<TextField
+						id="outlined-name"
+						value={price}
+						onChange={handlePriceChange}
+					/>
+				</Grid>
 
-			<Grid item xs={6}>
-				<Variable
-					title="Time Window"
-					variables={timeWindow}
-					callback={timeWindowCallback}
-					customLabels={["Cantidad minima para modificarse", "Tasa de cambio"]}
-					customMessage="Cantidad y tasa de cambio no deben ser 0"
-					fields={['quantity', 'percentageToChange']}
-				/>
-			</Grid>
+				<Grid item xs={6}>
+					<Variable
+						title="Time Window"
+						variables={timeWindow}
+						callback={timeWindowCallback}
+						customLabels={["Cantidad minima para modificarse", "Tasa de cambio"]}
+						customMessage="Cantidad y tasa de cambio no deben ser 0"
+						fields={['quantity', 'percentageToChange']}
+					/>
+				</Grid>
 
-			<Grid item xs={6}>
-				<Variable
-					title="Seniority"
-					variables={seniority}
-					callback={seniorityCallback}
-					customLabels={["Cantidad minima para modificarse", "Tasa de cambio"]}
-					customMessage="Cantidad y tasa de cambio no deben ser 0"
-					fields={['quantity', 'percentageToChange']}
-				/>
-			</Grid>
+				<Grid item xs={6}>
+					<Variable
+						title="Seniority"
+						variables={seniority}
+						callback={seniorityCallback}
+						customLabels={["Cantidad minima para modificarse", "Tasa de cambio"]}
+						customMessage="Cantidad y tasa de cambio no deben ser 0"
+						fields={['quantity', 'percentageToChange']}
+					/>
+				</Grid>
 
-			<Grid item xs={6}>
-				<Variable
-					title="Duracion del viaje"
-					variables={travelDuration}
-					callback={travelDurationCallback}
-					customLabels={["Cantidad minima para modificarse", "Tasa de cambio"]}
-					customMessage="Cantidad y tasa de cambio no deben ser 0"
-					fields={['quantity', 'percentageToChange']}
-				/>
-			</Grid>
+				<Grid item xs={6}>
+					<Variable
+						title="Duracion del viaje"
+						variables={travelDuration}
+						callback={travelDurationCallback}
+						customLabels={["Cantidad minima para modificarse", "Tasa de cambio"]}
+						customMessage="Cantidad y tasa de cambio no deben ser 0"
+						fields={['quantity', 'percentageToChange']}
+					/>
+				</Grid>
 
-			<Grid item xs={6}>
-				<Variable
-					title="Fecha de viaje"
-					variables={travelDate}
-					callback={travelDateCallback}
-					customLabels={["Nombre del día", "Tasa extra de cobro"]}
-					customMessage="Debe completar un nombre de día y una tasa"
-					fields={['day', 'extraFee']}
-				/>
-			</Grid>
+				<Grid item xs={6}>
+					<Variable
+						title="Fecha de viaje"
+						variables={travelDate}
+						callback={travelDateCallback}
+						customLabels={["Nombre del día", "Tasa extra de cobro"]}
+						customMessage="Debe completar un nombre de día y una tasa"
+						fields={['day', 'extraFee']}
+					/>
+				</Grid>
 
-			<Grid item xs={6}>
-				<Variable
-					title="Método de pago"
-					variables={methodOfPayment}
-					callback={methodOfPaymentCallback}
-					customLabels={["Nombre de la moneda", "Tasa extra de cobro"]}
-					customMessage="Debe completar una moneda y una tasa"
-					fields={['paymentType', 'percentageToChange']}
-				/>
-			</Grid>
+				<Grid item xs={6}>
+					<Variable
+						title="Método de pago"
+						variables={methodOfPayment}
+						callback={methodOfPaymentCallback}
+						customLabels={["Nombre de la moneda", "Tasa extra de cobro"]}
+						customMessage="Debe completar una moneda y una tasa"
+						fields={['paymentType', 'percentageToChange']}
+					/>
+				</Grid>
 
-			<Grid item xs={6}>
-				<Variable
-					title="Horario de Viaje"
-					variables={travelHour}
-					callback={travelHourCallback}
-					customLabels={["Horario", "Tasa extra de cobro"]}
-					customMessage="Debe completar una hora y una tasa"
-					fields={['hour', 'extraFee']}
-				/>
+				<Grid item xs={6}>
+					<Variable
+						title="Horario de Viaje"
+						variables={travelHour}
+						callback={travelHourCallback}
+						customLabels={["Horario", "Tasa extra de cobro"]}
+						customMessage="Debe completar una hora y una tasa"
+						fields={['hour', 'extraFee']}
+					/>
+				</Grid>
 			</Grid>
-		</Grid>
+		</div>
 	);
 }
