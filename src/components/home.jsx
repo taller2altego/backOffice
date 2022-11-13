@@ -10,6 +10,7 @@ import { config } from "../Constants";
 
 export default function DataTable() {
   const [users, setUsers] = useState([]);
+
   const currentUserData = useSelector((store) => store.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -58,21 +59,20 @@ export default function DataTable() {
       const token = sessionStorage.getItem("token");
       setState(navigate, dispatch);
       fetchAll(token);
-    }else{
+    } else {
       setState(navigate, dispatch);
     }
   }, []);
 
   return (
-    <div style={{ height: "100vh", width: "100%" }}>
-      token ? (<NavBar username={currentUserData.name} />
+    <div style={{ margin: "0px", padding: "0px", height: "92vh", width: "100%" }}>
+      <NavBar username={currentUserData.name} />
       <DataGrid
-        style={{ top: "5%" }}
         rows={users}
         columns={columns}
         pageSize={15}
         rowsPerPageOptions={[5]}
-      />) : ({() => navigate('/login')})
+      />
     </div>
   );
 }

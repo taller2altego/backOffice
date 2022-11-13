@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 
-import { TableRow, TableHead, TableContainer, TableCell, Table, TableBody, Paper, Button } from '@mui/material';
+import { TableRow, TableHead, TableContainer, TableCell, Table, TableBody, Paper, Button, Typography } from '@mui/material';
 
 import { reqVars } from '../../utils/requerimentVars';
 
@@ -54,13 +54,13 @@ export default function HistoryQuotes({ navigate, ...props }) {
 	};
 
 	return (
-		<>
-			<br />
-			<br />
-			<br />
-			Tarifa aplicada
+		<div style={{ height: "92vh", width: "100%" }}>
 
-			<TableContainer component={Paper} >
+			<Typography variant="h5" component="div">
+				Tarifa aplicada
+			</Typography>
+
+			< TableContainer component={Paper} >
 				<Table aria-label="collapsible table">
 					<TableHead>
 						<TableRow>
@@ -81,11 +81,14 @@ export default function HistoryQuotes({ navigate, ...props }) {
 						</TableCell>
 					</TableBody>
 				</Table>
-			</TableContainer>
-			<br></br>
-			Historial de tarifas
+			</TableContainer >
 
-			<TableContainer component={Paper} >
+			<Typography variant="h5" component="div">
+				Historial de tarifas
+			</Typography>
+
+
+			< TableContainer component={Paper} >
 				<Table aria-label="collapsible table">
 					<TableHead>
 						<TableRow>
@@ -108,7 +111,7 @@ export default function HistoryQuotes({ navigate, ...props }) {
 						</TableBody>
 					))}
 				</Table>
-			</TableContainer>
-		</>
+			</TableContainer >
+		</div>
 	);
 }

@@ -41,7 +41,7 @@ const NavBar = ({ buttonDarkMode, username }) => {
 
   return (
     <>
-      <div>
+      <div style={{ height: "7vh" }}>
         <React.Fragment key={"left"}>
           <Box sx={{ flexGrow: 1 }}>
             <AppBar position="fixed">
@@ -129,8 +129,8 @@ const NavBar = ({ buttonDarkMode, username }) => {
                 color="primary"
                 sx={{ top: "auto", bottom: 0, left: 0, width: 250 }}
               >
-                <List 
-                  alignItems="flex-start" 
+                <List
+                  alignItems="flex-start"
                   button
                   key={"cotizacion"}
                   component="a"
