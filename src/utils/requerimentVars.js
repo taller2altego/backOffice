@@ -1,4 +1,4 @@
-import { get } from "./requests";
+import { get, authPost } from "./requests";
 import { config } from '../Constants';
 
 export function reqVars() {
@@ -11,3 +11,8 @@ export function getQuotesById(id) {
 	return get(`${config.API_URL}/fees/${id}`, token);
 
 }
+
+export function postQuotes(body) {
+	const token = sessionStorage.getItem('token');
+	return authPost(`${config.API_URL}/fees`, token, body);
+	};
