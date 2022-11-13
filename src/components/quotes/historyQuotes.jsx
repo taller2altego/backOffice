@@ -1,13 +1,52 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-
 import { TableRow, TableHead, TableContainer, TableCell, Table, TableBody, Paper, Button, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import InfoIcon from '@mui/icons-material/Info';
 
 import { reqVars } from '../../utils/requerimentVars';
+import CustomizedMenus from "../microcomponents/desplegable.jsx"
+import { patch } from '../../utils/requests';
+import { config } from "../../Constants";
+
 
 export default function HistoryQuotes({ navigate, ...props }) {
 	const [appliedQuote, setAppliedQuote] = useState([]);
 	const [historyQuotes, setHistoryQuotes] = useState([]);
+	const [refresh, setRefresh] = useState(0);
+
+	const goToDetails = id => () => {
+		navigate(`/detail-quotes/${id}`, { state: { id } });
+	};
+
+	const goToTest = id => () => {
+		navigate(`/detail-quotes/${id}`, { state: { id } });
+	};
+
+	const applyQuote = (id) => () => {
+		const token = sessionStorage.getItem('token');
+		return patch(`${config.API_URL}/fees/${id}`, token, { applied: true });
+	};
+
+	const menuAppliedQuoteOptions = id => {
+		const options = [
+			{ name: 'Detalle', renderIcon: () => <RemoveCircleOutlineIcon />, callback: goToDetails(id) },
+			{ name: 'Testear', renderIcon: () => <DeleteIcon />, callback: goToTest(id) }
+		];
+
+		return <CustomizedMenus options={options} />;
+	}
+
+	const menuOptions = id => {
+		const options = [
+			{ name: 'Aplicar', renderIcon: () => <InfoIcon />, callback: applyQuote(id) },
+			{ name: 'Detalle', renderIcon: () => <RemoveCircleOutlineIcon />, callback: goToDetails(id) },
+			{ name: 'Testear', renderIcon: () => <DeleteIcon />, callback: goToTest(id) }
+		];
+
+		return <CustomizedMenus options={options} />;
+	}
 
 	useEffect(() => {
 		reqVars().then((res) => {
@@ -47,11 +86,7 @@ export default function HistoryQuotes({ navigate, ...props }) {
 			setHistoryQuotes(history);
 
 		})
-	}, []);
-
-	const goToDetails = id => () => {
-		navigate(`/detail-quotes/${id}`, { state: { id } });
-	};
+	}, [refresh]);
 
 	return (
 		<div style={{ height: "92vh", width: "100%" }}>
@@ -68,7 +103,7 @@ export default function HistoryQuotes({ navigate, ...props }) {
 							<TableCell> precio base </TableCell>
 							<TableCell> porcentaje de cambio total </TableCell>
 							<TableCell> precio extra total </TableCell>
-							<TableCell>Acciones</TableCell>
+							<TableCell> Acciones </TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -77,7 +112,7 @@ export default function HistoryQuotes({ navigate, ...props }) {
 						<TableCell>{appliedQuote['accumulatedPercentageToChange']}</TableCell>
 						<TableCell>{appliedQuote['accumulatedExtraFee']}</TableCell>
 						<TableCell>
-							<Button>Detalle</Button>
+							{menuAppliedQuoteOptions(appliedQuote['id'])}
 						</TableCell>
 					</TableBody>
 				</Table>
@@ -106,7 +141,7 @@ export default function HistoryQuotes({ navigate, ...props }) {
 							<TableCell>{quote['accumulatedPercentageToChange']}</TableCell>
 							<TableCell>{quote['accumulatedExtraFee']}</TableCell>
 							<TableCell>
-								<Button onClick={goToDetails(quote['id'])}>Detalle</Button>
+								{menuOptions(quote['id'])}
 							</TableCell>
 						</TableBody>
 					))}

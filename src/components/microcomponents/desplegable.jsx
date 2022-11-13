@@ -1,13 +1,9 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import EditIcon from '@mui/icons-material/Edit';
-import Divider from '@mui/material/Divider';
-import DeleteIcon from '@mui/icons-material/Delete';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import InfoIcon from '@mui/icons-material/Info';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const StyledMenu = styled((props) => (
@@ -51,13 +47,17 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function CustomizedMenus() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+export default function CustomizedMenus({ options }) {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [data, setData] = useState(options);
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+
+  const handleClose = callback => () => {
+    callback();
     setAnchorEl(null);
   };
 
@@ -77,26 +77,18 @@ export default function CustomizedMenus() {
       </Button>
       <StyledMenu
         id="demo-customized-menu"
-        MenuListProps={{
-          'aria-labelledby': 'demo-customized-button',
-        }}
+        MenuListProps={{ 'aria-labelledby': 'demo-customized-button' }}
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onClose={handleClose()}
       >
-        <MenuItem onClick={handleClose} disableRipple>
-          <InfoIcon />
-          Vista detallada
-        </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
-          <RemoveCircleOutlineIcon />
-          Bloquear
-        </MenuItem>
-        <Divider sx={{ my: 0.5 }} />
-        <MenuItem onClick={handleClose} disableRipple>
-          <DeleteIcon />
-          Borrar
-        </MenuItem>
+        {data.length > 0 && data.map(({ name, renderIcon, callback }) => {
+          return (
+            <MenuItem onClick={handleClose(callback)} disableRipple>
+              {renderIcon()} {name}
+            </MenuItem>
+          );
+        })}
       </StyledMenu>
     </div>
   );

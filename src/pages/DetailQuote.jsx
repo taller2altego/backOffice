@@ -21,7 +21,7 @@ const DetailQuote = () => {
 			<div>
 				<NavBar username={currentUserData.name} />
 			</div>
-			<div style={{ marginTop: "8%", marginLeft: "3%" }}>
+			<div style={{ marginTop: "2%", marginLeft: "2%" }}>
 				<DetailQuoteComponent id={location.state.id} navigate={navigate} />
 			</div>
 		</>

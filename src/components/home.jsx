@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button } from "@mui/material";
 import { get } from "../utils/requests";
 import NavBar from "./NavBar";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { setState } from "../utils/setState";
 import { config } from "../Constants";
 import CustomizedMenus from "./microcomponents/desplegable.jsx"
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import InfoIcon from '@mui/icons-material/Info';
 
 export default function DataTable() {
   const [users, setUsers] = useState([]);
@@ -24,27 +27,16 @@ export default function DataTable() {
     { field: "phoneNumber", headerName: "Phone Number", width: 130 },
     {
       field: "action",
-      headerName: "",
+      headerName: "Acciones",
       width: 150,
       sortable: false,
-      renderCell: (params) => {
-        const onClick = (e) => {
-          e.stopPropagation(); // don't select this row after clicking
-
-          const api = params.api;
-          const thisRow = {};
-
-          api
-            .getAllColumns()
-            .filter((c) => c.field !== "__check__" && !!c)
-            .forEach(
-              (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
-            );
-
-          return prompt(JSON.stringify(thisRow, null, 4));
-        };
-
-        return <CustomizedMenus/>;
+      renderCell: () => {
+        const options = [
+          { name: 'Vista detallada', renderIcon: () => <InfoIcon /> },
+          { name: 'Bloquear', renderIcon: () => <RemoveCircleOutlineIcon /> },
+          { name: 'Borrar', renderIcon: () => <DeleteIcon /> },
+        ];
+        return <CustomizedMenus options={options} />;
       },
     },
   ];
