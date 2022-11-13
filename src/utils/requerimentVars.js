@@ -16,3 +16,8 @@ export function postQuotes(body) {
 	const token = sessionStorage.getItem('token');
 	return authPost(`${config.API_URL}/fees`, token, body);
 	};
+
+export function getUserById(id) {
+	const token = sessionStorage.getItem('token');
+	return get(`${config.API_URL}/users/${id}`, token);
+}

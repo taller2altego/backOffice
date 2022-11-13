@@ -19,6 +19,10 @@ export default function DataTable() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const goToDetails = id => () => {
+		navigate(`/detail-user/${id}`, { state: { id } });
+	};
+
   const columns = [
     { field: "id", headerName: "ID", width: 100 },
     { field: "name", headerName: "First name", width: 300 },
@@ -30,12 +34,13 @@ export default function DataTable() {
       headerName: "Acciones",
       width: 150,
       sortable: false,
-      renderCell: () => {
+      renderCell: (params) => { 
         const options = [
-          { name: 'Vista detallada', renderIcon: () => <InfoIcon /> },
+          { name: 'Vista detallada', renderIcon: () => <InfoIcon />, callback: goToDetails(params.id) },
           { name: 'Bloquear', renderIcon: () => <RemoveCircleOutlineIcon /> },
           { name: 'Borrar', renderIcon: () => <DeleteIcon /> },
         ];
+        
         return <CustomizedMenus options={options} />;
       },
     },
