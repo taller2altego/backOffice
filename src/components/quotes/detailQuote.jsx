@@ -127,9 +127,9 @@ export default function DetailQuote({ id, navigate, ...props }) {
 		<Grid container >
 			{error ? <InstantMessage message="Debe cambiar el estado de por lo menos un campo" setState={setError} /> : ``}
 			<Grid item xs={6}>
-				<Typography variant="h3" component="div">
-					Cotizacion
-				</Typography>
+			<Typography variant="h3" component="div">
+				Cotizacion
+			</Typography>
 			</Grid>
 			<Grid item xs={6}>
 				<Box

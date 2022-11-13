@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setState } from "../utils/setState";
 import { config } from "../Constants";
+import CustomizedMenus from "./microcomponents/desplegable.jsx"
 
 export default function DataTable() {
   const [users, setUsers] = useState([]);
@@ -23,6 +24,7 @@ export default function DataTable() {
     {
       field: "action",
       headerName: "",
+      width: 150,
       sortable: false,
       renderCell: (params) => {
         const onClick = (e) => {
@@ -41,7 +43,7 @@ export default function DataTable() {
           return prompt(JSON.stringify(thisRow, null, 4));
         };
 
-        return <Button onClick={onClick}>Detalle</Button>;
+        return <CustomizedMenus/>;
       },
     },
   ];
