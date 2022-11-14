@@ -1,11 +1,5 @@
 import { Box, Grid, Typography } from "@mui/material";
 
-
-
-
-
-
-
 export default function VarUser(props) {
     console.log(props)
 
