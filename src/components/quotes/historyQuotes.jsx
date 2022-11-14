@@ -26,7 +26,7 @@ export default function HistoryQuotes({ navigate, ...props }) {
 
 	const applyQuote = (id) => () => {
 		const token = sessionStorage.getItem('token');
-		return patch(`${config.API_URL}/fees/${id}`, token, { applied: true });
+		return patch(`${config.API_URL}/fees/${id}`, token, { applied: true }).then(setRefresh(!refresh));
 	};
 
 	const menuAppliedQuoteOptions = id => {
@@ -45,7 +45,9 @@ export default function HistoryQuotes({ navigate, ...props }) {
 			{ name: 'Testear', renderIcon: () => <DeleteIcon />, callback: goToTest(id) }
 		];
 
-		return <CustomizedMenus options={options} />;
+		return (
+			<CustomizedMenus options={options} />
+		);
 	}
 
 	useEffect(() => {

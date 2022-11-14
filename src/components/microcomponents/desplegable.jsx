@@ -49,7 +49,6 @@ const StyledMenu = styled((props) => (
 
 export default function CustomizedMenus({ options }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [data, setData] = useState(options);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -57,7 +56,7 @@ export default function CustomizedMenus({ options }) {
   };
 
   const handleClose = callback => () => {
-    callback();
+    callback && callback();
     setAnchorEl(null);
   };
 
@@ -82,7 +81,7 @@ export default function CustomizedMenus({ options }) {
         open={open}
         onClose={handleClose()}
       >
-        {data.length > 0 && data.map(({ name, renderIcon, callback }) => {
+        {options.length > 0 && options.map(({ name, renderIcon, callback }) => {
           return (
             <MenuItem onClick={handleClose(callback)} disableRipple>
               {renderIcon()} {name}
