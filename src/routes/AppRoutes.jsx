@@ -5,19 +5,26 @@ import Grid from '@mui/material/Grid';
 
 const HomePage = lazy(() => import("../pages/Home.jsx"));
 const LoginPage = lazy(() => import("../pages/Login.jsx"));
-const Cotizacion = lazy(() => import("../pages/Cotizacion.jsx"));
+const Quotes = lazy(() => import("../pages/Quotes.jsx"));
+const DetailQuote = lazy(() => import("../pages/DetailQuote.jsx"));
+const DetailUser = lazy(() => import("../pages/DetailUser.jsx"));
 
 const AppRoutes = () => {
   return (
     <>
       <Router>
-        <Suspense fallback={<Grid container direction="row" justifyContent="center" alignItems="center" style={{ minHeight: "500px" }}>
-          <RingLoader color="#673ab7" size={130} />
-        </Grid>}>
+        <Suspense
+          fallback={
+            <Grid container direction="row" justifyContent="center" alignItems="center" style={{ minHeight: "500px" }}>
+              <RingLoader color="#673ab7" size={130} />
+            </Grid>
+          }>
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/login" element={<LoginPage />} />
-            <Route exact path="/cotizacion" element={<Cotizacion />} />
+            <Route exact path="/quotes" element={<Quotes />} />
+            <Route exact path="/detail-quotes/:id" element={<DetailQuote />} />
+            <Route exact path="/detail-user/:id" element={<DetailUser />} />
           </Routes>
         </Suspense>
       </Router>
