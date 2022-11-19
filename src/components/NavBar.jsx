@@ -18,16 +18,24 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Divider from "@mui/material/Divider";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import StarBorder from '@mui/icons-material/StarBorder';
+import { Collapse } from "@mui/material";
 
 const NavBar = ({ buttonDarkMode, username }) => {
   const [statee, setState] = useState({ left: false });
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
   const navigate = useNavigate();
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
+    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
     }
 
@@ -63,28 +71,13 @@ const NavBar = ({ buttonDarkMode, username }) => {
               </Toolbar>
             </AppBar>
           </Box>
-          <Drawer
-            anchor={"left"}
-            open={statee["left"]}
-            onClose={toggleDrawer("left", false)}
-          >
-            <Box
-              sx={{ width: 250 }}
-              role="presentation"
-              onClick={toggleDrawer("left", false)}
-              onKeyDown={toggleDrawer("anchor", false)}
-            >
+          <Drawer anchor={"left"} open={statee["left"]} onClose={toggleDrawer("left", false)}>
+            <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer("left", false)} onKeyDown={toggleDrawer("anchor", false)}>
               <Box>
                 <List>
-                  <AppBar
-                    position="fixed"
-                    color="primary"
-                    sx={{ top: 0, left: 0, width: 250, height: 65 }}
-                  >
+                  <AppBar position="fixed" color="primary" sx={{ top: 0, left: 0, width: 250, height: 65 }}>
                     <ListItemButton component="a" href="/">
-                      <ListItemIcon sx={{ fontSize: 20 }}>
-                        <HomeIcon />{" "}
-                      </ListItemIcon>
+                      <ListItemIcon sx={{ fontSize: 20 }}> <HomeIcon />{" "} </ListItemIcon>
                       <ListItemText
                         sx={{ my: 0 }}
                         primary="Fiuber BackOffice"
@@ -121,17 +114,25 @@ const NavBar = ({ buttonDarkMode, username }) => {
                     <ListItemText primary={"Cotizacion"} />
                   </ListItem>
 
-                  <ListItem
-                    button
-                    key={"Metricas"}
-                    component="a"
-                    onClick={() => navigate("/metrics")}
-                  >
+                  {/*  */}
+
+                  <ListItemButton onClick={handleClick}>
                     <ListItemIcon>
-                      <BuildIcon />
+                      <InboxIcon />
                     </ListItemIcon>
-                    <ListItemText primary={"Metricas"} />
-                  </ListItem>
+                    <ListItemText primary="Metricas" />
+                    {open ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                  <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }} key={"Metricas"} component="a" onClick={() => navigate("/metrics")}>
+                        <ListItemIcon>
+                          <BuildIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Metricas"} />
+                      </ListItemButton>
+                    </List>
+                  </Collapse>
                 </List>
               </Box>
 
