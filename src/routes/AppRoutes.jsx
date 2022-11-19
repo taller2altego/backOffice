@@ -7,6 +7,7 @@ const HomePage = lazy(() => import("../pages/Home.jsx"));
 const LoginPage = lazy(() => import("../pages/Login.jsx"));
 const Quotes = lazy(() => import("../pages/Quotes.jsx"));
 const DetailQuote = lazy(() => import("../pages/DetailQuote.jsx"));
+const TestQuote = lazy(() => import("../pages/TestQuote.jsx"));
 const DetailUser = lazy(() => import("../pages/DetailUser.jsx"));
 
 const AppRoutes = () => {
@@ -24,6 +25,7 @@ const AppRoutes = () => {
             <Route exact path="/login" element={<LoginPage />} />
             <Route exact path="/quotes" element={<Quotes />} />
             <Route exact path="/detail-quotes/:id" element={<DetailQuote />} />
+            <Route exact path="/test-quotes/:id" element={<TestQuote />} />
             <Route exact path="/detail-user/:id" element={<DetailUser />} />
           </Routes>
         </Suspense>
