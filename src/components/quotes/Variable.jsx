@@ -26,6 +26,7 @@ export default function Variable({ title, variables, callback, customLabels, cus
 			setError(true);
 			return;
 		}
+
 		callback([...variables, { [fields[0]]: firstField, [fields[1]]: secondField }]);
 		setFirstField(0);
 		setSecondField(0);

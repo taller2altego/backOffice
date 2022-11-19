@@ -41,7 +41,7 @@ const NavBar = ({ buttonDarkMode, username }) => {
 
   return (
     <>
-      <div>
+      <div style={{ height: "7vh" }}>
         <React.Fragment key={"left"}>
           <Box sx={{ flexGrow: 1 }}>
             <AppBar position="fixed">

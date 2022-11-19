@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import DetailQuoteComponent from "../components/quotes/detailQuote";
+import DetailUser from "../components/users/detailUsers";
 import NavBar from "../components/NavBar";
 import { setState } from "../utils/setState";
 
@@ -22,7 +22,7 @@ const DetailQuote = () => {
 				<NavBar username={currentUserData.name} />
 			</div>
 			<div style={{ marginTop: "2%", marginLeft: "2%" }}>
-				<DetailQuoteComponent id={location.state.id} navigate={navigate} />
+				<DetailUser id={location.state.id} navigate={navigate} />
 			</div>
 		</>
 	)
