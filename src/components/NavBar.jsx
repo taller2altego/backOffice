@@ -125,11 +125,11 @@ const NavBar = ({ buttonDarkMode, username }) => {
                   </ListItemButton>
                   <Collapse in={open} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                      <ListItemButton sx={{ pl: 4 }} key={"Metricas"} component="a" onClick={() => navigate("/metrics")}>
+                      <ListItemButton sx={{ pl: 4 }} key={"Metricas de usuario"} component="a" onClick={() => navigate("/users-metrics")}>
                         <ListItemIcon>
                           <BuildIcon />
                         </ListItemIcon>
-                        <ListItemText primary={"Metricas"} />
+                        <ListItemText primary={"Metricas de usuarios"} />
                       </ListItemButton>
                     </List>
                   </Collapse>
