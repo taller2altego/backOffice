@@ -18,16 +18,24 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Divider from "@mui/material/Divider";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import StarBorder from '@mui/icons-material/StarBorder';
+import { Collapse } from "@mui/material";
 
 const NavBar = ({ buttonDarkMode, username }) => {
   const [statee, setState] = useState({ left: false });
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
   const navigate = useNavigate();
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
+    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
     }
 
@@ -63,28 +71,13 @@ const NavBar = ({ buttonDarkMode, username }) => {
               </Toolbar>
             </AppBar>
           </Box>
-          <Drawer
-            anchor={"left"}
-            open={statee["left"]}
-            onClose={toggleDrawer("left", false)}
-          >
-            <Box
-              sx={{ width: 250 }}
-              role="presentation"
-              onClick={toggleDrawer("left", false)}
-              onKeyDown={toggleDrawer("anchor", false)}
-            >
+          <Drawer anchor={"left"} open={statee["left"]} onClose={toggleDrawer("left", false)}>
+            <Box sx={{ width: 250 }} role="presentation" onKeyDown={toggleDrawer("anchor", false)}>
               <Box>
                 <List>
-                  <AppBar
-                    position="fixed"
-                    color="primary"
-                    sx={{ top: 0, left: 0, width: 250, height: 65 }}
-                  >
-                    <ListItemButton component="a" href="/">
-                      <ListItemIcon sx={{ fontSize: 20 }}>
-                        <HomeIcon />{" "}
-                      </ListItemIcon>
+                  <AppBar position="fixed" color="primary" sx={{ top: 0, left: 0, width: 250, height: 65 }}>
+                    <ListItemButton onClick={toggleDrawer("left", false)} component="a" href="/">
+                      <ListItemIcon sx={{ fontSize: 20 }}> <HomeIcon />{" "} </ListItemIcon>
                       <ListItemText
                         sx={{ my: 0 }}
                         primary="Fiuber BackOffice"
@@ -113,13 +106,35 @@ const NavBar = ({ buttonDarkMode, username }) => {
                     button
                     key={"cotizacion"}
                     component="a"
-                    onClick={() => navigate("/quotes")}
+                    onClick={() => {
+                    toggleDrawer("left", false)
+                    navigate("/quotes")}}
                   >
                     <ListItemIcon>
                       <BuildIcon />
                     </ListItemIcon>
                     <ListItemText primary={"Cotizacion"} />
                   </ListItem>
+
+                  {/*  */}
+
+                  <ListItemButton onClick={handleClick}>
+                    <ListItemIcon>
+                      <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Metricas" />
+                    {open ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                  <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <ListItemButton sx={{ pl: 4 }} key={"Metricas de usuario"} component="a" onClick={() => navigate("/users-metrics")}>
+                        <ListItemIcon>
+                          <BuildIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Metricas de usuarios"} />
+                      </ListItemButton>
+                    </List>
+                  </Collapse>
                 </List>
               </Box>
 
