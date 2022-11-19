@@ -72,11 +72,11 @@ const NavBar = ({ buttonDarkMode, username }) => {
             </AppBar>
           </Box>
           <Drawer anchor={"left"} open={statee["left"]} onClose={toggleDrawer("left", false)}>
-            <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer("left", false)} onKeyDown={toggleDrawer("anchor", false)}>
+            <Box sx={{ width: 250 }} role="presentation" onKeyDown={toggleDrawer("anchor", false)}>
               <Box>
                 <List>
                   <AppBar position="fixed" color="primary" sx={{ top: 0, left: 0, width: 250, height: 65 }}>
-                    <ListItemButton component="a" href="/">
+                    <ListItemButton onClick={toggleDrawer("left", false)} component="a" href="/">
                       <ListItemIcon sx={{ fontSize: 20 }}> <HomeIcon />{" "} </ListItemIcon>
                       <ListItemText
                         sx={{ my: 0 }}
@@ -106,7 +106,9 @@ const NavBar = ({ buttonDarkMode, username }) => {
                     button
                     key={"cotizacion"}
                     component="a"
-                    onClick={() => navigate("/quotes")}
+                    onClick={() => {
+                    toggleDrawer("left", false)
+                    navigate("/quotes")}}
                   >
                     <ListItemIcon>
                       <BuildIcon />
