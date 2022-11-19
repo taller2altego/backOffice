@@ -21,7 +21,7 @@ export default function HistoryQuotes({ navigate, ...props }) {
 	};
 
 	const goToTest = id => () => {
-		navigate(`/detail-quotes/${id}`, { state: { id } });
+		navigate(`/test-quotes/${id}`, { state: { id } });
 	};
 
 	const applyQuote = (id) => () => {
