@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 
 const HomePage = lazy(() => import("../pages/Home.jsx"));
 const LoginPage = lazy(() => import("../pages/Login.jsx"));
+const AdminReg = lazy(() => import("../pages/AdminReg.jsx"));
 const Quotes = lazy(() => import("../pages/Quotes.jsx"));
 const DetailQuote = lazy(() => import("../pages/DetailQuote.jsx"));
 const Metrics = lazy(() => import("../pages/UsersMetrics"));
@@ -23,6 +24,7 @@ const AppRoutes = () => {
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/login" element={<LoginPage />} />
+            <Route exact path="/admin-register" element={<AdminReg />} />
             <Route exact path="/quotes" element={<Quotes />} />
             <Route exact path="/detail-quotes/:id" element={<DetailQuote />} />
             <Route exact path="/users-metrics" element={<Metrics />} />
