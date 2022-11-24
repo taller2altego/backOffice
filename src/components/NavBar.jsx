@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import StarBorder from '@mui/icons-material/StarBorder';
 import { Collapse } from "@mui/material";
 
@@ -101,6 +102,17 @@ const NavBar = ({ buttonDarkMode, username }) => {
                       <ListIcon />
                     </ListItemIcon>
                     <ListItemText primary={"Usuarios"} />
+                  </ListItem>
+                  <ListItem
+                    button
+                    key={"admin"}
+                    component="a"
+                    onClick={() => navigate("/admin-register")}
+                  >
+                    <ListItemIcon>
+                      <AddBoxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={"Registrar Admin"} />
                   </ListItem>
                   <ListItem
                     button

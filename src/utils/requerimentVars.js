@@ -21,3 +21,8 @@ export function getUserById(id) {
 	const token = sessionStorage.getItem('token');
 	return get(`${config.API_URL}/users/${id}`, token);
 }
+
+export function postCreateUser(body) {
+	const token = sessionStorage.getItem('token');
+	return authPost(`${config.API_URL}/users?adminCreation=true`, token, body);
+	};
