@@ -1,5 +1,5 @@
 const prod = {
-     API_URL: "${config.API_URL}"
+     API_URL: "https://altego-fiuber-apigateway.herokuapp.com"
 };
 const dev = {
      API_URL: "http://localhost:5000"
