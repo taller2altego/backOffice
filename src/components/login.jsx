@@ -6,12 +6,14 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setState } from "../utils/setState";
 import { config } from "../Constants";
+import InstantMessage from '../components/Error';
 
 export default function Login() {
   const [email, setEmail] = useState("admin@fiuber.com");
   const [password, setPassword] = useState("1234");
   const navigate = useNavigate();
   const dispatch = useDispatch()
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (sessionStorage.getItem("token")){
@@ -20,10 +22,10 @@ export default function Login() {
   }, []);
 
   const onSignIn = () => {
-    return post(`${config.API_URL}/login`, {
+    return post(`${config.API_URL}/login?isBackoffice=true`, {
       email: email,
       password: password,
-    }).then(async (info) => {
+    }).then((info) => {
       const {
         data: { id, token },
       } = info;
@@ -31,7 +33,9 @@ export default function Login() {
       sessionStorage.setItem("id", id.toString());
       setState(navigate, dispatch)
       navigate("/")
-      });
+      }).catch((err) => {
+        setError(true)
+      })
     }
 
   return (
@@ -48,6 +52,7 @@ export default function Login() {
       <br />
       <br />
       <br />
+      {error ? <InstantMessage message="Error al intentar ingresar" setState={setError} /> : ``}
       <form
         className="form"
         style={{
