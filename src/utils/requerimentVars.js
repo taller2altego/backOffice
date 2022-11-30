@@ -12,6 +12,11 @@ export function getQuotesById(id) {
 
 }
 
+export function postChargeFonds(email, body){
+	const token = sessionStorage.getItem('token');
+	return get(`${config.API_URL}/payments/deposit/${email} `, token, body);
+}
+
 export function postQuotes(body) {
 	const token = sessionStorage.getItem('token');
 	return authPost(`${config.API_URL}/fees`, token, body);

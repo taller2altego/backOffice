@@ -3,6 +3,7 @@ import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import RingLoader from "react-spinners/RingLoader";
 import Grid from '@mui/material/Grid';
 
+const ChargeFonds = lazy(() => import("../pages/ChargeFonds.jsx"));
 const HomePage = lazy(() => import("../pages/Home.jsx"));
 const LoginPage = lazy(() => import("../pages/Login.jsx"));
 const AdminReg = lazy(() => import("../pages/AdminReg.jsx"));
@@ -31,6 +32,7 @@ const AppRoutes = () => {
             <Route exact path="/users-metrics" element={<Metrics />} />
             <Route exact path="/test-quotes/:id" element={<TestQuote />} />
             <Route exact path="/detail-user/:id" element={<DetailUser />} />
+            <Route exact path="/chargeToUser" element={<ChargeFonds />} />
           </Routes>
         </Suspense>
       </Router>
