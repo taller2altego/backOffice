@@ -41,7 +41,7 @@ export default function DataTable() {
     { field: "email", headerName: "Email", width: 530 },
     { field: "phoneNumber", headerName: "Phone Number", width: 130 },
     { field: "status", headerName: "Estado", width: 130 },
-    { field: "numberOfScores", headerName: "Denuncias", width: 170 },
+    { field: "reportsCount", headerName: "Denuncias", width: 170 },
 
     {
       field: "action",

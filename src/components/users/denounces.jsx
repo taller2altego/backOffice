@@ -4,7 +4,7 @@ import { get, patch } from "../../utils/requests";
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import { Button, Grid } from '@mui/material';
-import { config } from "../Constants";
+import { config } from "../../Constants";
 import ListItemText from '@mui/material/ListItemText';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 
