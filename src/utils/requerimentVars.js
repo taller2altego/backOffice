@@ -1,4 +1,4 @@
-import { get, authPost } from "./requests";
+import { get, authPost, patch } from "./requests";
 import { config } from '../Constants';
 
 export function reqVars() {
@@ -12,9 +12,9 @@ export function getQuotesById(id) {
 
 }
 
-export function postChargeFonds(email, body){
+export function postChargeFonds(userId, body){
 	const token = sessionStorage.getItem('token');
-	return get(`${config.API_URL}/payments/deposit/${email} `, token, body);
+	return patch(`${config.API_URL}/users/${userId} `, token, body);
 }
 
 export function postQuotes(body) {
