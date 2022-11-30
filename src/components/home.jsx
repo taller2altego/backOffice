@@ -8,6 +8,7 @@ import { setState } from "../utils/setState";
 import { config } from "../Constants";
 import CustomizedMenus from "./microcomponents/desplegable.jsx"
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import InfoIcon from '@mui/icons-material/Info';
 
 
@@ -23,6 +24,10 @@ export default function DataTable() {
   const goToDetails = id => () => {
 		navigate(`/detail-user/${id}`, { state: { id } });
 	};
+
+  const goToDenounces = id => () => {
+		navigate(`/denounces-user/${id}`, { state: { id } });
+	};
   
   const block = (id, isBlocked, email) => () => {
     const token = sessionStorage.getItem('token');
@@ -36,6 +41,8 @@ export default function DataTable() {
     { field: "email", headerName: "Email", width: 530 },
     { field: "phoneNumber", headerName: "Phone Number", width: 130 },
     { field: "status", headerName: "Estado", width: 130 },
+    { field: "numberOfScores", headerName: "Denuncias", width: 170 },
+
     {
       field: "action",
       headerName: "Acciones",
@@ -43,7 +50,8 @@ export default function DataTable() {
       sortable: false,
       renderCell: (params) => { 
         const options = [
-          { name: 'Vista detallada', renderIcon: () => <InfoIcon />, callback: goToDetails(params.id) },
+          { name: 'Ver detallada', renderIcon: () => <InfoIcon />, callback: goToDetails(params.id) },
+          { name: 'Ver denuncias', renderIcon: () => <FormatListNumberedIcon />, callback: goToDenounces(params.id) },
           { name: 'Block/Unblock', renderIcon: () => <RemoveCircleOutlineIcon />, callback: block(params.id, params.row.isBlocked, params.row.email) }
         ];
         return <CustomizedMenus options={options} />;
