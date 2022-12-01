@@ -1,12 +1,11 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { get, patch } from "../../utils/requests";
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import { Button, Grid } from '@mui/material';
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { ListItem, ListItemButton, Button, Grid, ListItemText, List, IconButton} from '@mui/material';
 import { config } from "../../Constants";
-import ListItemText from '@mui/material/ListItemText';
-import { FixedSizeList, ListChildComponentProps } from 'react-window';
+import { RollerSkatingOutlined } from '@mui/icons-material';
 
 function renderRow(props) {
     const { index, style } = props;
@@ -14,29 +13,49 @@ function renderRow(props) {
     return (
         <ListItem style={style} key={index} component="div" disablePadding>
             <ListItemButton>
-                <ListItemText primary={`Denuncia XXXXXXXXXXXXXXX ${index + 1}`} />
+                <ListItemText primary={``} />
             </ListItemButton>
         </ListItem>
     );
 }
 
 
-export default function Denounces(id, navigate) {
-    const block = (id, isBlocked, email) => () => {
+export default function Denounces({state, mav}) {
+    console.log(state)
+    const navigate = useNavigate();
+    const [denounces, setDenounces] = useState([])
+
+    useEffect(() => {
+        const fetchAll = async (token) => {
+          const result = await get(
+            `${config.API_URL}/drivers/${state.driverId}/reports`,
+            token
+          )
+          setDenounces(result.data.data);
+          console.log(result.data.data)
+        };
+        if (sessionStorage.getItem("token")) {
+          const token = sessionStorage.getItem("token");
+          fetchAll(token);
+        } 
+      }, [ ]);
+
+    const block =  (id, isBlocked, email) => async () => {
         const token = sessionStorage.getItem('token');
-        return patch(`${config.API_URL}/users/${id}`, token, { isBlocked: !isBlocked, email })
-        .then(
-            navigate('/')
+        return await patch(`${config.API_URL}/users/${id}`, token, { isBlocked: !isBlocked, email })
+            .then(() => navigate('/')
             )
-      };
+    };
+
     return (
         <div >
             <Button
                 variant="contained"
                 color="success"
                 size="large"
+                onClick={block(state.id, state.isBlocked, state.email)}
             >
-                Bloquear
+                Bloquear/Desbloquear
             </Button>
             <Grid >
                 <Grid item xs={12}>
@@ -44,15 +63,22 @@ export default function Denounces(id, navigate) {
                         sx={{ width: '100%', height: '100%', maxWidth: 1400, bgcolor: 'background.paper' }}
                     >
 
-                        <FixedSizeList
-                            height={600}
-                            width={1400}
-                            itemSize={46}
-                            itemCount={200}
-                            overscanCount={5}
-                        >
-                            {renderRow}
-                        </FixedSizeList>
+                        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                            { denounces.map((value) => 
+                            (   
+                                <ListItem
+                                    key={value.description}
+                                    disableGutters
+                                    secondaryAction={
+                                        <IconButton aria-label="comment">
+                                           
+                                        </IconButton>
+                                    }
+                                >
+                                    <ListItemText primary={`${value.description}`} />
+                                </ListItem>
+                            ))}
+                        </List>
                     </Box>
                 </Grid>
             </Grid>

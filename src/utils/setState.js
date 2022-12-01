@@ -6,7 +6,6 @@ import { config } from '../Constants'
 export function setState(navigate, dispatch) {
     if (sessionStorage.getItem('state')){
       const state = JSON.parse(sessionStorage.getItem('state'))
-      console.log(state)
       dispatch(
         setUserData(state)
       )

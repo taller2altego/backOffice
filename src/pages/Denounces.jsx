@@ -22,7 +22,7 @@ const DenouncesPage = () => {
 				<NavBar username={currentUserData.name} />
 			</div>
 			<div style={{ marginTop: "2%", marginLeft: "2%" }}>
-				<Denounces navigate={navigate} />
+				<Denounces state={location.state} navigate={navigate} />
 			</div>
 		</>
 	)

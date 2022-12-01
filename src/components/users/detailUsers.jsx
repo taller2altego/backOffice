@@ -9,7 +9,7 @@ import VariableBool from '../microcomponents/varUserBool';
 
 
 export default function DetailUser({ id, navigate, ...props }) {
-	console.log(id)
+
 	const [name, setName] = useState("");
 	const [lastname, setLastName] = useState("");
 	const [phoneNumber, setPhoneNumber] = useState("");
@@ -24,7 +24,6 @@ export default function DetailUser({ id, navigate, ...props }) {
 	useEffect(() => {
 		getUserById(id)
 			.then(({  data  }) => {
-				console.log(data)
 				const mappedData = Object.keys(data)
 					.filter(key => !['id'].includes(key))
 					.map(key => ({ key: key, value: data[key] }));

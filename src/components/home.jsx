@@ -25,8 +25,8 @@ export default function DataTable() {
 		navigate(`/detail-user/${id}`, { state: { id } });
 	};
 
-  const goToDenounces = id => () => {
-		navigate(`/denounces-user/${id}`, { state: { id } });
+  const goToDenounces = (id, isBlocked, email, driverId) => () => {
+		navigate(`/denounces-user/${id}`,  {state:{ id, isBlocked, email, driverId }});
 	};
   
   const block = (id, isBlocked, email) => () => {
@@ -49,10 +49,11 @@ export default function DataTable() {
       width: 150,
       sortable: false,
       renderCell: (params) => { 
+        const driverId = params.row.drivers.length > 0 && params.row.drivers[0].id;
         const options = [
           { name: 'Ver detallada', renderIcon: () => <InfoIcon />, callback: goToDetails(params.id) },
-          { name: 'Ver denuncias', renderIcon: () => <FormatListNumberedIcon />, callback: goToDenounces(params.id) },
-          { name: 'Block/Unblock', renderIcon: () => <RemoveCircleOutlineIcon />, callback: block(params.id, params.row.isBlocked, params.row.email) }
+          { name: 'Ver denuncias', renderIcon: () => <FormatListNumberedIcon />, callback: goToDenounces(params.row.id , params.row.isBlocked, params.row.email, driverId)},
+          { name: 'Block/Unblock', renderIcon: () => <RemoveCircleOutlineIcon />, callback: block(params.row.id, params.row.isBlocked, params.row.email) }
         ];
         return <CustomizedMenus options={options} />;
       },

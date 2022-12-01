@@ -6,8 +6,6 @@ import NavBar from "../components/NavBar";
 import { setState } from "../utils/setState";
 
 const Quotes = (props) => {
-    console.log('quotes');
-    console.log(props);
     const currentUserData = useSelector((store) => store.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
