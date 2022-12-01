@@ -19,7 +19,7 @@ export default function ChargeFonds({ id, navigate, ...props }) {
 
 	const asignAmount = () => {
 		const body = {
-			amount: parseFloat(amount),
+			balance: parseFloat(amount),
 			withdrawFunds: false,
 			isTransaction: true,
 		};
