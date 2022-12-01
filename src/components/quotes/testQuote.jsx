@@ -6,6 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import { config } from "../../Constants";
 
 import InstantMessage from '../Error';
 
@@ -16,7 +17,7 @@ export default function TestQuote({ id, navigate, ...props }) {
     const [duration, setDuration] = useState(0);
     const [method, setMethod] = useState("Ether");
     const [date, setDate] = useState(dayjs('2022-11-02T05:04:33.430Z'));
-
+    const [userId, setUserId] = useState(0)
     const [error, setError] = useState(false);
 
     const handleDurationChange = (event) => {
@@ -27,8 +28,17 @@ export default function TestQuote({ id, navigate, ...props }) {
         setDistance(event.target.value)
     };
 
+    
+    function handleDateChange(event) {
+        setDate(event.$d.toISOString())
+    }
+
     const handleMethodChange = (event) => {
         setMethod(event.target.value)
+    };
+
+    const handleUserChange = (event) => {
+        setUserId(event.target.value)
     };
 
     const simulate = () => {
@@ -45,9 +55,12 @@ export default function TestQuote({ id, navigate, ...props }) {
 			paymentMethod:
                 method
 			,
+            feeId:
+                id
 		};
+
         const token = sessionStorage.getItem('token');
-        get("http://localhost:5000/price/3",token ,null ,paramsPass).then(({  data  }) => {
+        get(`${config.API_URL}/price/${userId}`,token ,null ,paramsPass).then(({  data  }) => {
             setPrice(data.data.price)
         }
         )
@@ -94,11 +107,11 @@ export default function TestQuote({ id, navigate, ...props }) {
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DateTimePicker
                                 renderInput={(props) => <TextField {...props} />}
-                                label="DateTimePicker"
+                                label="Fecha viaje"
                                 value={date}
                                 onChange={(newValue) => {
-                                    setDate(newValue);
-                                }}
+                                    handleDateChange(newValue);
+                                  }}
                             />
                         </LocalizationProvider>
                     </Box>
@@ -117,6 +130,20 @@ export default function TestQuote({ id, navigate, ...props }) {
                         </TextField>
                     </Box>
                 </Grid>
+                <Grid item xs={6}>
+                    <Box component="span" sx={{ display: 'inline' }}>
+                        <Typography variant="h3" component="div" >
+                            Id de usuario
+                        </Typography>
+                        <TextField 
+                        id="outlined-name"
+                        value={userId}
+                        onChange={handleUserChange}
+                        >
+                            {userId}
+                        </TextField>
+                    </Box>
+                </Grid>
                 <Grid item xs={4}>
                     <Box component="span" sx={{ display: 'inline' }}>
                         <Typography variant="h3" component="div" >
@@ -126,12 +153,11 @@ export default function TestQuote({ id, navigate, ...props }) {
                             { price }
                         </Typography>
                     </Box>
-
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={9}>
                     <Box
                         display="flex"
-                        justifyContent="left"
+                        justifyContent="center"
                         height={70}
                         style={{ top: "50%	" }}
                     >
