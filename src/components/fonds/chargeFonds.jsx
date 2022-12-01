@@ -10,7 +10,7 @@ import InstantMessageSuccess from '../Success'
 
 export default function ChargeFonds({ id, navigate, ...props }) {
 	const [amount, setAmount] = useState(0);
-	const [email, setEmail] = useState("");
+	const [userId, setUserId] = useState("");
 	const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
 
@@ -19,10 +19,12 @@ export default function ChargeFonds({ id, navigate, ...props }) {
 
 	const asignAmount = () => {
 		const body = {
-			amount: amount,
+			amount: parseFloat(amount),
+			withdrawFunds: false,
+			isTransaction: true,
 		};
-		if (email !== '' && amount>0) {
-			postChargeFonds(email, body);
+		if (userId !== '' && amount>0) {
+			postChargeFonds(userId, body);
             setSuccess(true)
             setError(false)
 		} else {
@@ -35,11 +37,9 @@ export default function ChargeFonds({ id, navigate, ...props }) {
 		setAmount(event.target.value)
 	};
 
-	const handleEmailChange = (event) => {
-		setEmail(event.target.value)
+	const handleUserIdChange = (event) => {
+		setUserId(event.target.value)
 	};
-
-	
 
 	return (
 		<div style={{ height: "2vh", width: "100%" }}>
@@ -81,13 +81,13 @@ export default function ChargeFonds({ id, navigate, ...props }) {
 				</Grid>
 				<Grid item xs={6}>
 					<Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div">
-						Email
+						ID del Usuario
 					</Typography>
 
 					<TextField
 						id="outlined-name"
-						value={email}
-						onChange={handleEmailChange}
+						value={userId}
+						onChange={handleUserIdChange}
 					/>
 				</Grid>
 
