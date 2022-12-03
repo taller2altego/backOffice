@@ -1,7 +1,6 @@
 import { Box, Grid, Typography } from "@mui/material";
 
 export default function VarUser(props) {
-    console.log(props)
 
     return (
         <Box sx={{ border: 1 , padding: 2}}  style={{ backgroundColor: '#ae97e9', borderRadius: '30px'}}>

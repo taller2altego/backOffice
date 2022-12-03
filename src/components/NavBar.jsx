@@ -107,6 +107,17 @@ const NavBar = ({ buttonDarkMode, username }) => {
                     button
                     key={"admin"}
                     component="a"
+                    onClick={() => navigate("/chargeToUser")}
+                  >
+                    <ListItemIcon>
+                      <AddBoxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={"Cargar saldo"} />
+                  </ListItem>
+                  <ListItem
+                    button
+                    key={"admin"}
+                    component="a"
                     onClick={() => navigate("/admin-register")}
                   >
                     <ListItemIcon>
