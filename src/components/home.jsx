@@ -8,6 +8,7 @@ import { setState } from "../utils/setState";
 import { config } from "../Constants";
 import CustomizedMenus from "./microcomponents/desplegable.jsx"
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import InfoIcon from '@mui/icons-material/Info';
 
 
@@ -23,6 +24,10 @@ export default function DataTable() {
   const goToDetails = id => () => {
 		navigate(`/detail-user/${id}`, { state: { id } });
 	};
+
+  const goToDenounces = (id, isBlocked, email, driverId) => () => {
+		navigate(`/denounces-user/${id}`,  {state:{ id, isBlocked, email, driverId }});
+	};
   
   const block = (id, isBlocked, email) => () => {
     const token = sessionStorage.getItem('token');
@@ -36,15 +41,19 @@ export default function DataTable() {
     { field: "email", headerName: "Email", width: 530 },
     { field: "phoneNumber", headerName: "Phone Number", width: 130 },
     { field: "status", headerName: "Estado", width: 130 },
+    { field: "reportsCount", headerName: "Denuncias", width: 170 },
+
     {
       field: "action",
       headerName: "Acciones",
       width: 150,
       sortable: false,
       renderCell: (params) => { 
+        const driverId = params.row.drivers.length > 0 && params.row.drivers[0].id;
         const options = [
-          { name: 'Vista detallada', renderIcon: () => <InfoIcon />, callback: goToDetails(params.id) },
-          { name: 'Block/Unblock', renderIcon: () => <RemoveCircleOutlineIcon />, callback: block(params.id, params.row.isBlocked, params.row.email) }
+          { name: 'Ver detallada', renderIcon: () => <InfoIcon />, callback: goToDetails(params.id) },
+          { name: 'Ver denuncias', renderIcon: () => <FormatListNumberedIcon />, callback: goToDenounces(params.row.id , params.row.isBlocked, params.row.email, driverId)},
+          { name: 'Block/Unblock', renderIcon: () => <RemoveCircleOutlineIcon />, callback: block(params.row.id, params.row.isBlocked, params.row.email) }
         ];
         return <CustomizedMenus options={options} />;
       },
