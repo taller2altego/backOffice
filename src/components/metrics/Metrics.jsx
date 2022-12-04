@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { Typography } from "@mui/material";
 
-import { Button } from '@mui/material';
 
 export default function Metrics({ navigate, ...props }) {
 
@@ -9,7 +9,14 @@ export default function Metrics({ navigate, ...props }) {
 
     return (
         <>
-            Metricas
+            <Typography
+                variant="h2"
+                gutterBottom
+                component="div"
+                align="center"
+            >
+                Metricas
+            </Typography>
         </>
     );
 }

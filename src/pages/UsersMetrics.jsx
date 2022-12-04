@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -23,16 +23,24 @@ const Metrics = () => {
             <div style={{ marginLeft: "3%" }}>
                 <MetricsComponent navigate={navigate} />
             </div>
+            <Typography
+                variant="h4"
+                gutterBottom
+                component="div"
+
+            >
+                Usuarios
+            </Typography>
             <Grid container >
                 <Grid item xs={6} >
-                    <iframe src="https://app.datadoghq.com/graph/embed?token=6ff377bba2143be3eafb553576f0795035fb8501efb27a2fe7c561f0045ad555&height=300&width=600&legend=true" width="600" height="300" frameborder="0"></iframe>
-                    <iframe src="https://app.datadoghq.com/graph/embed?token=8f09696848881188a3e5dca5b5db4e4c541e77909c397e2d438066b6fe3cf73e&height=300&width=600&legend=true" width="600" height="300" frameborder="0"></iframe>
-                    <iframe src="https://app.datadoghq.com/graph/embed?token=44b67a01fabd43b3eb00add3b6851772dd6a91e6b94df0acf72ead28ff54cb5a&height=300&width=600&legend=true" width="600" height="300" frameborder="0"></iframe>
+                    <iframe src="https://app.datadoghq.com/graph/embed?token=299e7b73ea9c6ece31e4cf62e8fe78527ea6ff57ae01704ef0875c5fa3d1fa73&height=300&width=600&legend=true" width="600" height="300" frameborder="0"></iframe>
+                    <iframe src="https://app.datadoghq.com/graph/embed?token=ecded759a70f6d0cab5ace760ee8083bf090a0b7ad6df9151780b92ddb4f4bf4&height=300&width=600&legend=true" width="600" height="300" frameborder="0"></iframe>
+                    <iframe src="https://app.datadoghq.com/graph/embed?token=292442170344743e6f7d807ab33f2b0193966fe0fa8f9fbc562c77517897aa07&height=300&width=600&legend=true" width="600" height="300" frameborder="0"></iframe>
                 </Grid>
                 <Grid item xs={6} >
-                    <iframe src="https://app.datadoghq.com/graph/embed?token=47b48975f7bdc0397a7e8c391bbfd3a53ae3757761acd95885a230d45fb0f57b&height=300&width=600&legend=true" width="600" height="300" frameborder="0"></iframe>
-                    <iframe src="https://app.datadoghq.com/graph/embed?token=c4fa4386d7def252121fa68defef634f2b7808e2b3aff605366c11ba40c3af4f&height=300&width=600&legend=true" width="600" height="300" frameborder="0"></iframe>
-                    <iframe src="https://app.datadoghq.com/graph/embed?token=3423047ed97d7fb43901de7cab17902fd74924016951f6dff7bf6fc1fd675f0c&height=300&width=600&legend=true" width="600" height="300" frameborder="0"></iframe>
+                    <iframe src="https://app.datadoghq.com/graph/embed?token=e32f15f603a700655ed71d11bcc6b9bbd6d893d3b02f428792ced096fef2a2e0&height=300&width=600&legend=true" width="600" height="300" frameborder="0"></iframe>
+                    <iframe src="https://app.datadoghq.com/graph/embed?token=b76e7d1c61d2eac094705dfe05ef3e911ffa8a2382bfea6d9a2f7f97ab4e981d&height=300&width=600&legend=true" width="600" height="300" frameborder="0"></iframe>
+                    <iframe src="https://app.datadoghq.com/graph/embed?token=91cf80d5a93575107073c1a303e2463669a711338b2d2f4a139a8d3f408dc0a8&height=300&width=600&legend=true" width="600" height="300" frameborder="0"></iframe>
                 </Grid>
             </Grid>
         </>

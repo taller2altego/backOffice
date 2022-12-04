@@ -10,7 +10,9 @@ const LoginPage = lazy(() => import("../pages/Login.jsx"));
 const AdminReg = lazy(() => import("../pages/AdminReg.jsx"));
 const Quotes = lazy(() => import("../pages/Quotes.jsx"));
 const DetailQuote = lazy(() => import("../pages/DetailQuote.jsx"));
-const Metrics = lazy(() => import("../pages/UsersMetrics"));
+const UserMetrics = lazy(() => import("../pages/UsersMetrics"));
+const TravelMetrics = lazy(() => import("../pages/TravelMetrics"));
+const PaymentsMetrics = lazy(() => import("../pages/PaymentsMetrics"));
 const TestQuote = lazy(() => import("../pages/TestQuote.jsx"));
 const DetailUser = lazy(() => import("../pages/DetailUser.jsx"));
 
@@ -30,7 +32,9 @@ const AppRoutes = () => {
             <Route exact path="/admin-register" element={<AdminReg />} />
             <Route exact path="/quotes" element={<Quotes />} />
             <Route exact path="/detail-quotes/:id" element={<DetailQuote />} />
-            <Route exact path="/users-metrics" element={<Metrics />} />
+            <Route exact path="/users-metrics" element={<UserMetrics />} />
+            <Route exact path="/travel-metrics" element={<TravelMetrics />} />
+            <Route exact path="/payments-metrics" element={<PaymentsMetrics />} />
             <Route exact path="/test-quotes/:id" element={<TestQuote />} />
             <Route exact path="/denounces-user/:id" element={<DenouncesPage />} />
             <Route exact path="/detail-user/:id" element={<DetailUser  />} />

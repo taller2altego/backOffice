@@ -156,8 +156,21 @@ const NavBar = ({ buttonDarkMode, username }) => {
                         </ListItemIcon>
                         <ListItemText primary={"Metricas de usuarios"} />
                       </ListItemButton>
+                      <ListItemButton sx={{ pl: 4 }} key={"Metricas de usuario"} component="a" onClick={() => navigate("/travel-metrics")}>
+                        <ListItemIcon>
+                          <BuildIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Metricas de Travel"} />
+                      </ListItemButton>
+                      <ListItemButton sx={{ pl: 4 }} key={"Metricas de usuario"} component="a" onClick={() => navigate("/payments-metrics")}>
+                        <ListItemIcon>
+                          <BuildIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Metricas de Payments"} />
+                      </ListItemButton>
                     </List>
                   </Collapse>
+                  
                 </List>
               </Box>
 
