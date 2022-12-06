@@ -21,14 +21,25 @@ export default function DetailQuote({ id, navigate, ...props }) {
 	const [travelHour, setTravelHour] = useState([]);
 	const [hasChanged, setHasChanged] = useState(false);
 	const [error, setError] = useState(false);
-
+	const days = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
 	useEffect(() => {
 		getQuotesById(id)
 			.then(({ data: { data } }) => {
 				const mappedData = Object.keys(data)
 					.filter(key => !['id', 'applied'].includes(key))
-					.map(key => ({ key: key, value: data[key] }));
-
+					.map(key => ({ key: key, value: data[key] }))
+					.map(item => {
+						if (item.key === "travelDate"){
+							return { key: item.key, value: data[item.key]
+								.map(tupla => {
+									return { day: days[tupla.day], extraFee: tupla.extraFee }  
+							})}
+						}else{
+							return { key: item.key, value: item.value }
+						}
+					})
+				console.log(data)
+				console.log(mappedData)
 				mappedData.forEach(variable => {
 					const setters = {
 						price: setPrice,
@@ -51,11 +62,18 @@ export default function DetailQuote({ id, navigate, ...props }) {
 					throw err;
 				}
 			});
+			
 	}, []);
 
-	const setActualQuote = () => {
-		const days = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
 
+
+	const setActualQuote = () => {
+		
+		for (var i = 0; i < travelDate.length; i++) {
+			if (isNaN(travelDate[i].day)){
+				travelDate[i].day = days.indexOf(travelDate[i].day)
+			}
+		}
 		const body = {
 			price: price,
 			timeWindow:
@@ -72,15 +90,14 @@ export default function DetailQuote({ id, navigate, ...props }) {
 			,
 			travelDistance: travelDistance,
 			travelDate:
-				{
-					day: days.indexOf(travelDate[0].day),
-					extraFee: travelDate[0].extraFee
-				}
+				travelDate
 			,
 			travelHour:
 				travelHour
 
 		};
+		
+	
 		if (hasChanged) {
 			postQuotes(body);
 			return navigate("/quotes");
@@ -183,7 +200,7 @@ export default function DetailQuote({ id, navigate, ...props }) {
 						title="Time Window"
 						variables={timeWindow}
 						callback={timeWindowCallback}
-						customLabels={["Cantidad minima para modificarse", "Tasa de cambio"]}
+						customLabels={["Cota modificacion", "Tasa de cambio"]}
 						customMessage="Cantidad y tasa de cambio no deben ser 0"
 						fields={['quantity', 'percentageToChange']}
 					/>
@@ -194,7 +211,7 @@ export default function DetailQuote({ id, navigate, ...props }) {
 						title="Seniority"
 						variables={seniority}
 						callback={seniorityCallback}
-						customLabels={["Cantidad minima para modificarse", "Tasa de cambio"]}
+						customLabels={["Cota modificacion", "Tasa de cambio"]}
 						customMessage="Cantidad y tasa de cambio no deben ser 0"
 						fields={['quantity', 'percentageToChange']}
 					/>
@@ -205,7 +222,7 @@ export default function DetailQuote({ id, navigate, ...props }) {
 						title="Duracion del viaje"
 						variables={travelDuration}
 						callback={travelDurationCallback}
-						customLabels={["Cantidad minima para modificarse", "Tasa de cambio"]}
+						customLabels={["Cota modificacion", "Tasa de cambio"]}
 						customMessage="Cantidad y tasa de cambio no deben ser 0"
 						fields={['quantity', 'percentageToChange']}
 					/>
@@ -213,7 +230,7 @@ export default function DetailQuote({ id, navigate, ...props }) {
 
 				<Grid item xs={6} >
 					<VariableCombo
-						title="Fecha de viaje"
+						title="Dia de viaje"
 						variables={travelDate}
 						callback={travelDateCallback}
 						customLabels={["Nombre del día", "Tasa extra de cobro"]}

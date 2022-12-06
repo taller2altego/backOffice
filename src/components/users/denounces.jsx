@@ -21,7 +21,7 @@ function renderRow(props) {
 
 
 export default function Denounces({state, mav}) {
-    console.log(state)
+    
     const navigate = useNavigate();
     const [denounces, setDenounces] = useState([])
 
@@ -32,7 +32,7 @@ export default function Denounces({state, mav}) {
             token
           )
           setDenounces(result.data.data);
-          console.log(result.data.data)
+    
         };
         if (sessionStorage.getItem("token")) {
           const token = sessionStorage.getItem("token");

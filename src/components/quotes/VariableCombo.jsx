@@ -7,7 +7,7 @@ export default function VariableCombo({ title, variables, callback, customLabels
 
 	const [labels, setLabels] = useState(customLabels);
 	const [message, setMessage] = useState(customMessage);
-	const [firstField, setFirstField] = useState(0);
+	const [firstField, setFirstField] = useState("");
 	const [secondField, setSecondField] = useState(0);
 	const [error, setError] = useState(false);
 	const days = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
@@ -19,17 +19,18 @@ export default function VariableCombo({ title, variables, callback, customLabels
 	};
 
 	const onChangeFirstField = (event, newValue) => {
-		setFirstField((newValue));
+		setFirstField(newValue);
 	};
 
 	const saveState = () => {
-		if (firstField === 0 || secondField === 0) {
+		if (firstField === "" || secondField === 0) {
 			setError(true);
 			return;
 		}
 
+	
 		callback([...variables, { [fields[0]]: firstField, [fields[1]]: secondField }]);
-		setFirstField(0);
+		setFirstField("");
 		setSecondField(0);
 	};
 

@@ -1,9 +1,14 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { TableRow, TableHead, TableContainer, TableCell, Table, TableBody, Paper, Button, Typography } from '@mui/material';
+import { TableRow, TableHead, TableContainer, TableCell, Table, TableBody, Paper, Typography } from '@mui/material';
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import Stack from '@mui/material/Stack';
+import { ArrowForward, ArrowBack } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import InfoIcon from '@mui/icons-material/Info';
+
 
 import { reqVars } from '../../utils/requerimentVars';
 import CustomizedMenus from "../microcomponents/desplegable.jsx"
@@ -14,6 +19,8 @@ import { config } from "../../Constants";
 export default function HistoryQuotes({ navigate, ...props }) {
 	const [appliedQuote, setAppliedQuote] = useState([]);
 	const [historyQuotes, setHistoryQuotes] = useState([]);
+	const [page, setPage] = useState(1);
+	const [numPages, setNumPages] = useState(0)
 	const [refresh, setRefresh] = useState(0);
 
 	const goToDetails = id => () => {
@@ -38,6 +45,11 @@ export default function HistoryQuotes({ navigate, ...props }) {
 		return <CustomizedMenus options={options} />;
 	}
 
+	const onPageChange = (event, value) => {
+		console.log(page)
+		setPage(value)
+	}
+
 	const menuOptions = id => {
 		const options = [
 			{ name: 'Aplicar', renderIcon: () => <InfoIcon />, callback: applyQuote(id) },
@@ -51,7 +63,8 @@ export default function HistoryQuotes({ navigate, ...props }) {
 	}
 
 	useEffect(() => {
-		reqVars().then((res) => {
+		reqVars(page).then((res) => {
+			console.log("entro")
 			const data = res.data.data;
 
 			const parsedData = data
@@ -83,12 +96,13 @@ export default function HistoryQuotes({ navigate, ...props }) {
 					return { ...acum, history: [...acum.history, curr] };
 				}
 			}, { applied: {}, history: [] });
-
+			
+			const cantPages = Math.ceil(res.data.total /  res.data.limit)
+			setNumPages(cantPages)
 			setAppliedQuote(applied);
 			setHistoryQuotes(history);
-
 		})
-	}, [refresh]);
+	}, [refresh, page]);
 
 	return (
 		<div style={{ height: "92vh", width: "100%" }}>
@@ -121,7 +135,7 @@ export default function HistoryQuotes({ navigate, ...props }) {
 			</TableContainer >
 
 			<Typography variant="h5" component="div">
-				Historial de tarifas
+				Historial de tarifas 
 			</Typography>
 
 
@@ -148,6 +162,19 @@ export default function HistoryQuotes({ navigate, ...props }) {
 						</TableBody>
 					))}
 				</Table>
+				<Stack spacing={2}>
+					<Pagination
+						onChange={onPageChange}
+						count={numPages}
+						renderItem={(item) => (
+							<PaginationItem
+								slots={{ previous: ArrowBack, next: ArrowForward }}
+								{...item}
+							/>
+						
+						)}
+					/>
+				</Stack>
 			</TableContainer >
 		</div>
 	);

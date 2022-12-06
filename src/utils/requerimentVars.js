@@ -1,9 +1,9 @@
 import { get, authPost, patch } from "./requests";
 import { config } from '../Constants';
 
-export function reqVars() {
+export function reqVars(page) {
 	const token = sessionStorage.getItem('token');
-	return get(`${config.API_URL}/fees`, token);
+	return get(`${config.API_URL}/fees?page=${page}`, token);
 }
 
 export function getQuotesById(id) {
