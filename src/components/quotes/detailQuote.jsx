@@ -6,6 +6,7 @@ import { getQuotesById } from '../../utils/requerimentVars';
 import { postQuotes } from '../../utils/requerimentVars';
 
 import Variable from './Variable';
+import VariableCombo from './VariableCombo'
 import { Box } from '@mui/system';
 import InstantMessage from '../Error';
 
@@ -53,6 +54,8 @@ export default function DetailQuote({ id, navigate, ...props }) {
 	}, []);
 
 	const setActualQuote = () => {
+		const days = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
+
 		const body = {
 			price: price,
 			timeWindow:
@@ -69,7 +72,10 @@ export default function DetailQuote({ id, navigate, ...props }) {
 			,
 			travelDistance: travelDistance,
 			travelDate:
-				travelDate
+				{
+					day: days.indexOf(travelDate[0].day),
+					extraFee: travelDate[0].extraFee
+				}
 			,
 			travelHour:
 				travelHour
@@ -205,8 +211,8 @@ export default function DetailQuote({ id, navigate, ...props }) {
 					/>
 				</Grid>
 
-				<Grid item xs={6}>
-					<Variable
+				<Grid item xs={6} >
+					<VariableCombo
 						title="Fecha de viaje"
 						variables={travelDate}
 						callback={travelDateCallback}
