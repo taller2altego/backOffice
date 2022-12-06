@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Button, TextField, Typography, List, ListItem, ListItemText, Autocomplete } from '@mui/material';
+import { Button, TextField, Typography, List, ListItem, ListItemText, Autocomplete, Grid } from '@mui/material';
 import InstantMessage from '../Error';
 
 export default function VariableCombo({ title, variables, callback, customLabels, customMessage, fields }) {
@@ -17,6 +17,12 @@ export default function VariableCombo({ title, variables, callback, customLabels
 	const onChangeSecondField = event => {
 		setSecondField(event.target.value);
 	};
+
+	const onClickDelete = (id) => () =>{
+		variables.splice(id)
+		callback([...variables])
+	}
+
 
 	const onChangeFirstField = (event, newValue) => {
 		setFirstField(newValue);
@@ -55,19 +61,29 @@ export default function VariableCombo({ title, variables, callback, customLabels
 			<Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div"> Valores Actuales </Typography>
 
 			<List sx={{ width: '100%', maxWidth: '50%', bgcolor: 'background.paper' }}>
-				{labels && labels.length > 0 && <ListItem>
-					<ListItemText primary={labels[0]} />
-					<ListItemText primary={labels[1]} />
+			{labels && labels.length > 0 && <ListItem>
+					<ListItemText primary={labels[0]} sx={4}/>
+					<ListItemText primary={labels[1]} sx={4}/>
+					<ListItemText sx={4}>Accion </ListItemText>
 				</ListItem>}
 				{
 					variables.length > 0 && variables
-						.map(variable => {
+						.map((variable, id) => {
 							const keys = Object.keys(variable);
 							return (
-								<ListItem>
-									<ListItemText secondary={variable[keys[0]]} />
-									<ListItemText secondary={variable[keys[1]]} />
-								</ListItem>
+								<Grid container>
+									<Grid xs={10}>
+										<ListItem>
+											<ListItemText secondary={variable[keys[0]]} sx={6} />
+											<ListItemText secondary={variable[keys[1]]} sx={4}/>
+										</ListItem>
+									</Grid>
+									<Grid xs={2}>
+										<Button onClick={onClickDelete(id)}>
+											Borrar
+										</Button>
+									</Grid>
+								</Grid>
 							);
 						})
 				}
