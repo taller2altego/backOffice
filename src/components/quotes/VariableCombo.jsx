@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Button, TextField, Typography, List, ListItem, ListItemText, Autocomplete, Grid } from '@mui/material';
 import InstantMessage from '../Error';
 
-export default function VariableCombo({ title, variables, callback, customLabels, customMessage, fields }) {
+export default function VariableCombo({ title, subtitle, variables, callback, customLabels, customMessage, fields }) {
 
 	const [labels, setLabels] = useState(customLabels);
 	const [message, setMessage] = useState(customMessage);
@@ -18,7 +18,7 @@ export default function VariableCombo({ title, variables, callback, customLabels
 		setSecondField(event.target.value);
 	};
 
-	const onClickDelete = (id) => () =>{
+	const onClickDelete = (id) => () => {
 		variables.splice(id)
 		callback([...variables])
 	}
@@ -34,7 +34,6 @@ export default function VariableCombo({ title, variables, callback, customLabels
 			return;
 		}
 
-	
 		callback([...variables, { [fields[0]]: firstField, [fields[1]]: secondField }]);
 		setFirstField("");
 		setSecondField(0);
@@ -43,27 +42,28 @@ export default function VariableCombo({ title, variables, callback, customLabels
 	return (
 		<>
 			<Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div"> {title} </Typography>
-			<div style={{ display: "flex"}}>
-			<Autocomplete
-				disablePortal
-				id="outlined-name test2"
-				options={days}
-				onChange={onChangeFirstField}
-				sx={{ width: 250 }}
-				renderInput={(params) => <TextField {...params} label="Dia de la semana" />}
-			/>
-			<TextField id="outlined-name test1" placeholder="Ejemplo: 123" value={secondField} onChange={onChangeSecondField} />
-			
-			{error && message ? <InstantMessage message={message} setState={setError} /> : ``}
+			<Typography variant="h8" component="div"> {subtitle} </Typography>
+			<div style={{ display: "flex" }}>
+				<Autocomplete
+					disablePortal
+					id="outlined-name test2"
+					options={days}
+					onChange={onChangeFirstField}
+					sx={{ width: 250 }}
+					renderInput={(params) => <TextField {...params} label="Dia de la semana" />}
+				/>
+				<TextField id="outlined-name test1" placeholder="Ejemplo: 123" value={secondField} onChange={onChangeSecondField} />
 
-			<Button onClick={saveState}> Añadir </Button>
+				{error && message ? <InstantMessage message={message} setState={setError} /> : ``}
+
+				<Button onClick={saveState}> Añadir </Button>
 			</div>
 			<Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div"> Valores Actuales </Typography>
 
 			<List sx={{ width: '100%', maxWidth: '50%', bgcolor: 'background.paper' }}>
-			{labels && labels.length > 0 && <ListItem>
-					<ListItemText primary={labels[0]} sx={4}/>
-					<ListItemText primary={labels[1]} sx={4}/>
+				{labels && labels.length > 0 && <ListItem>
+					<ListItemText primary={labels[0]} sx={4} />
+					<ListItemText primary={labels[1]} sx={4} />
 					<ListItemText sx={4}>Accion </ListItemText>
 				</ListItem>}
 				{
@@ -75,7 +75,7 @@ export default function VariableCombo({ title, variables, callback, customLabels
 									<Grid xs={10}>
 										<ListItem>
 											<ListItemText secondary={variable[keys[0]]} sx={6} />
-											<ListItemText secondary={variable[keys[1]]} sx={4}/>
+											<ListItemText secondary={variable[keys[1]]} sx={4} />
 										</ListItem>
 									</Grid>
 									<Grid xs={2}>

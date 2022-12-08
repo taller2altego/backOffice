@@ -4,7 +4,7 @@ import { Button, TextField, Typography, List, ListItem, ListItemText, Grid } fro
 import { ListItemButton } from '@mui/material';
 import InstantMessage from '../Error';
 
-export default function Variable({ title, variables, callback, customLabels, customMessage, fields }) {
+export default function Variable({ title, subtitle, variables, callback, customLabels, customMessage, fields }) {
 
 	const [labels, setLabels] = useState(customLabels);
 	const [message, setMessage] = useState(customMessage);
@@ -18,7 +18,7 @@ export default function Variable({ title, variables, callback, customLabels, cus
 		setSecondField(event.target.value);
 	};
 
-	const onClickDelete = (id) => () =>{
+	const onClickDelete = (id) => () => {
 		console.log(id)
 		console.log(variables)
 		variables.splice(id)
@@ -46,6 +46,7 @@ export default function Variable({ title, variables, callback, customLabels, cus
 		<>
 			{console.log(variables)}
 			<Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div"> {title} </Typography>
+			<Typography variant="h8" component="div"> {subtitle} </Typography>
 
 			<TextField id="outlined-name test2" placeholder="Ejemplo: 123" value={firstField} onChange={onChangeFirstField} />
 			<TextField id="outlined-name test1" placeholder="Ejemplo: 123" value={secondField} onChange={onChangeSecondField} />
@@ -58,8 +59,8 @@ export default function Variable({ title, variables, callback, customLabels, cus
 
 			<List sx={{ width: '100%', maxWidth: '50%', bgcolor: 'background.paper' }}>
 				{labels && labels.length > 0 && <ListItem>
-					<ListItemText primary={labels[0]} sx={4}/>
-					<ListItemText primary={labels[1]} sx={4}/>
+					<ListItemText primary={labels[0]} sx={4} />
+					<ListItemText primary={labels[1]} sx={4} />
 					<ListItemText sx={4}>Accion </ListItemText>
 				</ListItem>}
 				{
@@ -71,7 +72,7 @@ export default function Variable({ title, variables, callback, customLabels, cus
 									<Grid xs={10}>
 										<ListItem>
 											<ListItemText secondary={variable[keys[0]]} sx={6} />
-											<ListItemText secondary={variable[keys[1]]} sx={4}/>
+											<ListItemText secondary={variable[keys[1]]} sx={4} />
 										</ListItem>
 									</Grid>
 									<Grid xs={2}>
