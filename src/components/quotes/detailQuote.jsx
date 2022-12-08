@@ -192,7 +192,7 @@ export default function DetailQuote({ id, navigate, ...props }) {
         </Grid>
 
         <Grid item xs={6}>
-          <Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div"> Duracion del viaje </Typography>
+          <Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div"> Duracion del viaje (minutos por KM - porcentaje de incremento) </Typography>
           <Typography variant="h8" component="div"> Incrementa porcentualmente cuando la distancia x tasa es mayor a la duracion </Typography>
           <TextField id="outlined-name" value={travelDuration} onChange={handleTravelDurationQuantityChange} />
           <TextField id="outlined-name" value={feeTravelDuration} onChange={handleTravelDurationPercentageChange} />
