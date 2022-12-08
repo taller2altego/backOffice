@@ -33,7 +33,7 @@ export default function HistoryQuotes({ navigate, ...props }) {
 
 	const applyQuote = (id) => () => {
 		const token = sessionStorage.getItem('token');
-		return patch(`${config.API_URL}/fees/${id}`, token, { applied: true }).then(setRefresh(!refresh));
+		return patch(`${config.API_URL}/fees/${id}`, token, { applied: true }).then(() => setRefresh(!refresh));
 	};
 
 	const menuAppliedQuoteOptions = id => {
@@ -46,7 +46,6 @@ export default function HistoryQuotes({ navigate, ...props }) {
 	}
 
 	const onPageChange = (event, value) => {
-		console.log(page)
 		setPage(value)
 	}
 
@@ -96,9 +95,9 @@ export default function HistoryQuotes({ navigate, ...props }) {
 					return { ...acum, history: [...acum.history, curr] };
 				}
 			}, { applied: {}, history: [] });
-			
-			const cantPages = Math.ceil(res.data.total /  res.data.limit)
-			setNumPages(cantPages)
+
+			const cantPages = Math.ceil(res.data.total / res.data.limit)
+			setNumPages(cantPages);
 			setAppliedQuote(applied);
 			setHistoryQuotes(history);
 		})
@@ -135,7 +134,7 @@ export default function HistoryQuotes({ navigate, ...props }) {
 			</TableContainer >
 
 			<Typography variant="h5" component="div">
-				Historial de tarifas 
+				Historial de tarifas
 			</Typography>
 
 
@@ -171,7 +170,7 @@ export default function HistoryQuotes({ navigate, ...props }) {
 								slots={{ previous: ArrowBack, next: ArrowForward }}
 								{...item}
 							/>
-						
+
 						)}
 					/>
 				</Stack>

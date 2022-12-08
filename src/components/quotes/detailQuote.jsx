@@ -13,13 +13,17 @@ import InstantMessage from '../Error';
 export default function DetailQuote({ id, navigate, ...props }) {
   const [price, setPrice] = useState(0);
   const [travelDistance, setTravelDistance] = useState(0);
+
   const [travelDuration, setTravelDuration] = useState(0);
+  const [feeTravelDuration, setFeeTravelDuration] = useState(0);
+
   const [timeWindow, setTimeWindow] = useState([]);
   const [seniority, setSeniority] = useState([]);
   const [methodOfPayment, setMethodOfPayment] = useState([]);
   const [travelDate, setTravelDate] = useState([]);
   const [travelHour, setTravelHour] = useState([]);
   const [hasChanged, setHasChanged] = useState(false);
+
   const [error, setError] = useState(false);
   const days = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
   useEffect(() => {
@@ -40,13 +44,15 @@ export default function DetailQuote({ id, navigate, ...props }) {
               return { key: item.key, value: item.value }
             }
           })
-        console.log(data)
-        console.log(mappedData)
+
         mappedData.forEach(variable => {
           const setters = {
             price: setPrice,
             travelDistance: setTravelDistance,
-            travelDuration: setTravelDuration,
+            travelDuration: variable => {
+              setTravelDuration(variable.quantity);
+              setFeeTravelDuration(variable.percentageToChange);
+            },
             timeWindow: setTimeWindow,
             seniority: setSeniority,
             methodOfPayment: setMethodOfPayment,
@@ -58,8 +64,8 @@ export default function DetailQuote({ id, navigate, ...props }) {
       })
       .catch(err => {
         if (err.response && err.response.data.message === 'jwt expired') {
-          sessionStorage.clear()
-          navigate("/login")
+          sessionStorage.clear();
+          navigate("/login");
         } else {
           throw err;
         }
@@ -67,30 +73,36 @@ export default function DetailQuote({ id, navigate, ...props }) {
 
   }, []);
 
-
-
   const setActualQuote = () => {
-
     for (var i = 0; i < travelDate.length; i++) {
       if (isNaN(travelDate[i].day)) {
         travelDate[i].day = days.indexOf(travelDate[i].day)
       }
     }
+
     const body = {
       price,
       timeWindow,
       seniority,
       methodOfPayment,
-      travelDuration,
+      travelDuration: {
+        quantity: travelDuration,
+        percentageToChange: feeTravelDuration
+      },
       travelDistance,
       travelDate,
       travelHour
     };
 
-
     if (hasChanged) {
-      postQuotes(body);
-      return navigate("/quotes");
+      return postQuotes(body)
+        .then(() => {
+          return navigate("/quotes");
+        })
+        .catch(err => {
+          console.log(err);
+          throw err;
+        });
     } else {
       setError(true);
     }
@@ -101,11 +113,15 @@ export default function DetailQuote({ id, navigate, ...props }) {
     setTravelDistance(event.target.value)
   };
 
-  const handleTravelDurationChange = (event) => {
+  const handleTravelDurationQuantityChange = (event) => {
     setHasChanged(true);
     setTravelDuration(event.target.value);
   };
 
+  const handleTravelDurationPercentageChange = (event) => {
+    setHasChanged(true);
+    setFeeTravelDuration(event.target.value);
+  };
 
   const handlePriceChange = (event) => {
     setHasChanged(true);
@@ -176,9 +192,10 @@ export default function DetailQuote({ id, navigate, ...props }) {
         </Grid>
 
         <Grid item xs={6}>
-          <Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div"> Duracion del viaje </Typography>
+          <Typography sx={{ mt: 4, mb: 2 }} variant="h5" component="div"> Duracion del viaje (minutos por KM - porcentaje de incremento) </Typography>
           <Typography variant="h8" component="div"> Incrementa porcentualmente cuando la distancia x tasa es mayor a la duracion </Typography>
-          <TextField id="outlined-name" value={travelDuration} onChange={handleTravelDurationChange} />
+          <TextField id="outlined-name" value={travelDuration} onChange={handleTravelDurationQuantityChange} />
+          <TextField id="outlined-name" value={feeTravelDuration} onChange={handleTravelDurationPercentageChange} />
         </Grid>
 
         <Grid item xs={6}>
