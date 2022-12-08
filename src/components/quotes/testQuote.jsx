@@ -29,13 +29,12 @@ export default function TestQuote({ id, navigate, ...props }) {
 		setDistance(event.target.value)
 	};
 
-
 	function handleDateChange(event) {
-		const momentDate = moment('Wed Nov 02 2022 00:00:33 GMT-0300 (Argentina Standard Time)').utcOffset(0).subtract(3, 'hours');
-		console.log(momentDate);
+		const momentDate = moment(event.$d).utcOffset(0).subtract(3, 'hours')._i;
+		// console.log(momentDate);
 
-		const date = moment(event.$d).utcOffset(0).toISOString();
-		setDate(date);
+		// const date = moment().utcOffset(0).toISOString();
+		setDate(momentDate);
 	}
 
 	const handleMethodChange = (event) => {
