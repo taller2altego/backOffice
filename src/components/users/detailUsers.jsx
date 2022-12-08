@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Grid, TextField } from '@mui/material';
+import { Grid, TextField, Typography } from '@mui/material';
 
 import { getUserById } from '../../utils/requerimentVars';
 
 import Variable from '../microcomponents/varUser';
 import VariableBool from '../microcomponents/varUserBool';
+import { TextFields } from '@mui/icons-material';
 
 
 export default function DetailUser({ id, navigate, ...props }) {
@@ -29,6 +30,7 @@ export default function DetailUser({ id, navigate, ...props }) {
 					.map(key => ({ key: key, value: data[key] }));
 
 				mappedData.forEach(variable => {
+					console.log(variable);
 					const setters = {
 						name: setName,
                         lastname: setLastName,
@@ -40,6 +42,9 @@ export default function DetailUser({ id, navigate, ...props }) {
 						createdAt: setCreatedAt,
 						isDriver: setIsDriver,
                         role: setRole
+					}
+					if (!setters[variable.key]) {
+						return null;
 					}
 					setters[variable.key](variable.value);
 				});
@@ -58,79 +63,30 @@ export default function DetailUser({ id, navigate, ...props }) {
 
 	return (
 		<Grid container spacing={2} >
-			<Grid item xs={4}>
-				<Variable
-					title="Nombre"
-					variables={name}
-				/>
+			<Grid item xs={3}>
+				<Typography fontSize={20}>Nombre</Typography>
+				<Typography fontSize={30} fontWeight={700}>{name}</Typography>
+				<Typography fontSize={20} marginTop={3}>Apellido</Typography>
+				<Typography fontWeight={700} fontSize={30}>{lastname}</Typography>
+				<Typography fontSize={20} marginTop={3}>Telefono</Typography>
+				<Typography fontWeight={700} fontSize={30}>{phoneNumber}</Typography>
+				<Typography fontSize={20} marginTop={3}>Email</Typography>
+				<Typography fontWeight={700} fontSize={30}>{email}</Typography>
+				<Typography fontSize={20} marginTop={3}>Creado en: </Typography>
+				<Typography fontWeight={700} fontSize={30}>{createdAt}</Typography>
+			</Grid>
+			<Grid item xs={3}>
+				<Typography fontSize={20} marginTop={3}>Veces puntuado</Typography>
+				<Typography fontWeight={700} fontSize={30}>{numberOfScores}</Typography>
+				<Typography fontSize={20} marginTop={3}>Promedio de puntuaciones</Typography>
+				<Typography fontWeight={700} fontSize={30}>{totalScore}</Typography>
+				<Typography fontSize={20} marginTop={3}>Rol</Typography>
+				<Typography fontWeight={700} fontSize={30}>{role}</Typography>
 			</Grid>
 			<Grid item xs={4}>
-				<Variable
-					title="Apellido"
-					variables={lastname}
-				/>
+				<Typography fontWeight={700} fontSize={30} color={isBlocked ? "red" : "green"}>{isBlocked ? "El usuario esta bloqueado" : "El usuario no esta bloqueado"}</Typography>
+				<Typography fontWeight={700} fontSize={30} >{isDriver ? "Es conductor" : "No es conductor"}</Typography>
 			</Grid>
-			<Grid item xs={4}>
-				<Variable
-					title="Telefono"
-					variables={phoneNumber}
-				/>
-			</Grid>
-			<Grid item xs={4}>
-				<Variable
-					title="Email"
-					variables={email}
-				/>
-			</Grid>
-			<Grid item xs={4}>
-				<Variable
-					title="#Scores"
-					variables={numberOfScores}
-				/>
-			</Grid>
-			<Grid item xs={4}>
-				<Variable
-					title="ScoresTotal"
-					variables={totalScore}
-				/>
-			</Grid>
-			<Grid item xs={4}>
-				<Variable
-					title="Puntaje total"
-					variables={totalScore}
-				/>
-			</Grid>
-			<Grid item xs={4}>
-				<VariableBool
-					title="Bloqueado"
-					neg="Bloquedo"
-					pos="No bloqueado"
-					variables={!isBlocked}
-				/>
-			</Grid>
-			<Grid item xs={4}>
-				<Variable
-					title="Creacion en:"
-					variables={createdAt}
-				/>
-			</Grid>
-			<Grid item xs={4}>
-				<VariableBool
-					title="Es conductor"
-					neg="No es conductor"
-					pos="Es conductor"
-					variables={isDriver}
-				/>
-			</Grid>
-			<Grid item xs={4}>
-				<Variable
-					title="Rol"
-					variables={role}
-				/>
-			</Grid>
-		
-
-			
 		</Grid>
 	);
 }
