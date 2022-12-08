@@ -19,10 +19,7 @@ export default function Variable({ title, subtitle, variables, callback, customL
 	};
 
 	const onClickDelete = (id) => () => {
-		console.log(id)
-		console.log(variables)
 		variables.splice(id)
-		console.log(variables)
 		callback([...variables])
 	}
 
